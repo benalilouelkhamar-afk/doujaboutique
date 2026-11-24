@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Contact – Doujaboutique</title>
+  <meta name="description" content="Doujaboutique, prêt-à-porter féminin à Fès : robes, blouses, mailles, gilets, manteaux et ensembles. Livraison partout au Maroc, paiement à la livraison." />
+  <meta name="theme-color" content="#FAF7F2" />
+  <!-- Polices Google : Playfair Display (titres) + Poppins (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Le header, le footer, le panier, les modales et le bouton WhatsApp
+     sont ajoutés automatiquement par js/app.js (identiques sur toutes les pages). -->
+<body data-page="contact">
+  <main id="main">
+    <section class="page active">
+      <div class="container">
+        <div class="page-titre">
+          <h1>Contact</h1>
+          <p>Passez nous voir à Fès ou écrivez-nous sur WhatsApp.</p>
+        </div>
+        <div class="contact-grille">
+          <div class="contact-carte">
+            <div class="contact-ligne"><div class="garantie-ico">📍</div><div><strong>Adresse</strong><span>Avenue El Wafae, Narjiss, Fès, Maroc</span></div></div>
+            <div class="contact-ligne"><div class="garantie-ico">💬</div><div><strong>WhatsApp</strong><a href="#" data-wa-info id="lienWaContact">Écrivez-nous</a></div></div>
+            <div class="contact-ligne"><div class="garantie-ico">📸</div><div><strong>Instagram</strong><a href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener">@doujaboutique</a></div></div>
+            <div class="contact-ligne">
+              <div class="garantie-ico">🕒</div>
+              <div style="flex:1">
+                <strong>Horaires</strong>
+                <table class="horaires">
+                  <tr><td>Lundi – Samedi</td><td>10h00 – 21h00</td></tr>
+                  <tr><td>Dimanche</td><td>15h00 – 21h00</td></tr>
+                  <tr><td>WhatsApp</td><td>7j/7</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="contact-btns">
+              <button class="btn btn-wa btn-bloc" data-wa-info>
+                <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Écrire sur WhatsApp
+              </button>
+              <a class="btn btn-contour btn-bloc" href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener">Suivre @doujaboutique</a>
+            </div>
+          </div>
+          <div class="carte-map">
+            <iframe title="Doujaboutique sur Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Avenue%20El%20Wafae%2C%20Narjiss%2C%20F%C3%A8s%2C%20Maroc&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="js/donnees.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

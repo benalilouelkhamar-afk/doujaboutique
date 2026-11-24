@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Boutique – Doujaboutique</title>
+  <meta name="description" content="Doujaboutique, prêt-à-porter féminin à Fès : robes, blouses, mailles, gilets, manteaux et ensembles. Livraison partout au Maroc, paiement à la livraison." />
+  <meta name="theme-color" content="#FAF7F2" />
+  <!-- Polices Google : Playfair Display (titres) + Poppins (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Le header, le footer, le panier, les modales et le bouton WhatsApp
+     sont ajoutés automatiquement par js/app.js (identiques sur toutes les pages). -->
+<body data-page="boutique">
+  <main id="main">
+    <section class="page active">
+      <div class="container">
+        <div class="page-titre">
+          <h1 id="titreBoutique">La boutique</h1>
+          <p>Livraison partout au Maroc • Paiement à la livraison</p>
+        </div>
+
+        <div class="boutique-layout">
+          <!-- Panneau de filtres (tiroir sur mobile, colonne sur desktop) -->
+          <aside class="filtres" id="panneauFiltres" aria-label="Filtres">
+            <div class="filtres-entete">
+              <h3>Filtres</h3>
+              <button class="fermer fermer-filtres" data-fermer-filtres aria-label="Fermer les filtres">×</button>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Catégorie</h4>
+              <div class="puces" id="filtreCategories"></div>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Taille</h4>
+              <div class="puces" id="filtreTailles"></div>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Prix maximum</h4>
+              <input type="range" class="prix-range" id="filtrePrix" min="149" max="690" step="10" value="690" />
+              <div class="prix-valeurs"><span id="prixMinLabel">149 DH</span><span id="prixMaxLabel">690 DH</span></div>
+            </div>
+            <div class="filtres-pied">
+              <button class="btn btn-contour" id="btnReinitFiltres">Réinitialiser</button>
+              <button class="btn btn-noir" data-fermer-filtres>Voir les produits</button>
+            </div>
+          </aside>
+
+          <div>
+            <div class="barre-outils">
+              <button class="btn-filtres" id="btnOuvrirFiltres">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                Filtres
+              </button>
+              <span class="resultats" id="nbResultats"></span>
+              <select class="select" id="triProduits" aria-label="Trier">
+                <option value="nouveautes">Nouveautés</option>
+                <option value="prix-asc">Prix croissant</option>
+                <option value="prix-desc">Prix décroissant</option>
+              </select>
+            </div>
+            <div class="grille-produits" id="grilleBoutique"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="js/donnees.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
