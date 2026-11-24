@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Doujaboutique – Prêt-à-porter féminin à Fès</title>
+  <meta name="description" content="Doujaboutique, boutique de prêt-à-porter féminin à Fès : robes, robes de soirée, blouses, mailles, manteaux et ensembles. Livraison partout au Maroc, paiement à la livraison." />
+  <meta name="theme-color" content="#FAF7F2" />
+
+  <!-- Polices Google : Playfair Display (titres) + Poppins (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       1. VARIABLES & BASE
+       ========================================================= */
+    :root {
+      --creme: #FAF7F2;
+      --creme-2: #F3EDE4;
+      --rose: #E8C4C4;
+      --rose-clair: #F6E6E4;
+      --rose-fonce: #B98585;
+      --noir: #1E1E1E;
+      --gris: #6B6461;
+      --gris-clair: #E7E1D9;
+      --or: #C9A96E;
+      --or-fonce: #A98A52;
+      --vert-wa: #25D366;
+      --vert-wa-fonce: #1DA851;
+      --blanc: #FFFFFF;
+      --danger: #C0504D;
+
+      --radius: 16px;
+      --radius-sm: 10px;
+      --ombre: 0 6px 24px rgba(30, 30, 30, .07);
+      --ombre-forte: 0 14px 40px rgba(30, 30, 30, .14);
+      --titre: "Playfair Display", Georgia, serif;
+      --texte: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --header-h: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--texte);
+      color: var(--noir);
+      background: var(--creme);
+      line-height: 1.6;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+    body.no-scroll { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input, select, textarea { font-family: inherit; font-size: 16px; color: var(--noir); }
+    h1, h2, h3, h4 { font-family: var(--titre); font-weight: 600; line-height: 1.2; }
+
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+    .section { padding: 56px 0; }
+    .section-head { text-align: center; margin-bottom: 32px; }
+    .section-head .eyebrow {
+      display: inline-block; font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--or-fonce); font-weight: 500; margin-bottom: 8px;
+    }
+    .section-head h2 { font-size: clamp(26px, 5vw, 38px); }
+    .section-head p { color: var(--gris); margin-top: 8px; }
+
+    /* Boutons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 26px; border-radius: 999px; font-weight: 500; font-size: 15px;
+      transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn-noir { background: var(--noir); color: var(--blanc); }
+    .btn-noir:hover { background: #333; box-shadow: var(--ombre); }
+    .btn-blanc { background: var(--blanc); color: var(--noir); }
+    .btn-blanc:hover { box-shadow: var(--ombre-forte); }
+    .btn-wa { background: var(--vert-wa); color: var(--blanc); }
+    .btn-wa:hover { background: var(--vert-wa-fonce); box-shadow: 0 8px 24px rgba(37, 211, 102, .35); }
+    .btn-contour { border: 1.5px solid var(--noir); color: var(--noir); }
+    .btn-contour:hover { background: var(--noir); color: var(--blanc); }
+    .btn-bloc { width: 100%; }
+    .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* Badges */
+    .badge {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600;
+      letter-spacing: .03em; background: var(--or); color: var(--blanc);
+    }
+    .badge.promo { background: var(--noir); }
+    .badge.stock { background: var(--rose-fonce); }
+
+    /* Animation d'apparition au scroll */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .annonce-piste { animation: none !important; }
+    }
+
+    /* =========================================================
+       2. IMAGES AVEC REPLI (si la photo ne charge pas)
+       ========================================================= */
+    .media {
+      position: relative; overflow: hidden; background: linear-gradient(160deg, var(--rose-clair), var(--rose));
+      aspect-ratio: 3 / 4;
+    }
+    .media .ph {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 16px; font-family: var(--titre); font-size: 17px; color: var(--noir);
+      opacity: .75;
+    }
+    .media img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease, opacity .4s; color: transparent; font-size: 0;
+    }
+    .media img.ko { display: none; }
+
+    /* =========================================================
+       3. BARRE D'ANNONCE DÉFILANTE
+       ========================================================= */
+    .annonce { background: var(--noir); color: var(--creme); font-size: 13px; overflow: hidden; white-space: nowrap; }
+    .annonce-piste { display: inline-flex; animation: defile 28s linear infinite; padding: 8px 0; }
+    .annonce-piste span { padding: 0 28px; }
+    @keyframes defile { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* =========================================================
+       4. HEADER
+       ========================================================= */
+    .header {
+      position: sticky; top: 0; z-index: 50; background: rgba(250, 247, 242, .94);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gris-clair);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); gap: 12px; }
+    .logo { font-family: var(--titre); font-size: 24px; font-weight: 700; letter-spacing: .01em; }
+    .logo em { color: var(--or); font-style: normal; }
+    .nav { display: none; gap: 28px; }
+    .nav a { font-size: 14px; font-weight: 500; position: relative; padding: 4px 0; }
+    .nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--or);
+      transition: width .25s;
+    }
+    .nav a:hover::after, .nav a.actif::after { width: 100%; }
+    .header-actions { display: flex; align-items: center; gap: 4px; }
+    .icon-btn {
+      width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%; position: relative; transition: background .2s;
+    }
+    .icon-btn:hover { background: var(--rose-clair); }
+    .icon-btn svg { width: 22px; height: 22px; }
+    .compteur {
+      position: absolute; top: 4px; right: 2px; min-width: 19px; height: 19px; padding: 0 5px;
+      border-radius: 999px; background: var(--or); color: var(--blanc); font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; transition: transform .3s;
+    }
+    .compteur.pop { transform: scale(1.35); }
+
+    /* Menu mobile */
+    .menu-mobile {
+      position: fixed; inset: 0; z-index: 90; background: var(--creme); padding: 24px 16px;
+      transform: translateX(-100%); transition: transform .35s ease; display: flex; flex-direction: column;
+    }
+    .menu-mobile.ouvert { transform: none; }
+    .menu-mobile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .menu-mobile nav a {
+      display: block; font-family: var(--titre); font-size: 28px; padding: 12px 0;
+      border-bottom: 1px solid var(--gris-clair);
+    }
+    .menu-mobile .menu-bas { margin-top: auto; display: grid; gap: 10px; }
+
+    @media (min-width: 960px) {
+      .nav { display: flex; }
+      .burger { display: none !important; }
+    }
+
+    /* =========================================================
+       5. PAGES (navigation par onglets JS)
+       ========================================================= */
+    .page { display: none; }
+    .page.active { display: block; animation: apparition .45s ease; }
+    @keyframes apparition { from { opacity: 0; } to { opacity: 1; } }
+
+    /* =========================================================
+       6. ACCUEIL
+       ========================================================= */
+    .hero {
+      position: relative; min-height: calc(100svh - var(--header-h) - 34px); display: flex; align-items: flex-end;
+      color: var(--blanc); overflow: hidden; background: linear-gradient(160deg, #caa3a3, #6d5552);
+    }
+    .hero .media { position: absolute; inset: 0; aspect-ratio: auto; background: transparent; }
+    .hero .media img { object-position: center 25%; }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(30,30,30,.05) 20%, rgba(30,30,30,.7) 100%);
+    }
+    .hero-contenu { position: relative; z-index: 2; padding-top: 48px; padding-bottom: 56px; width: 100%; }
+    .hero-tag {
+      display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4);
+      backdrop-filter: blur(6px); padding: 6px 14px; border-radius: 999px; font-size: 12px; margin-bottom: 16px;
+      letter-spacing: .05em;
+    }
+    .hero h1 { font-size: clamp(34px, 8vw, 64px); max-width: 720px; margin-bottom: 14px; }
+    .hero h1 small { display: block; font-size: .55em; font-weight: 500; font-style: italic; margin-top: 6px; }
+    .hero p { font-size: 16px; max-width: 520px; opacity: .92; margin-bottom: 28px; }
+    .hero-btns { display: flex; flex-direction: column; gap: 12px; }
+    @media (min-width: 600px) { .hero-btns { flex-direction: row; } }
+
+    /* Garanties */
+    .garanties { background: var(--blanc); border-bottom: 1px solid var(--gris-clair); }
+    .garanties-grille { display: grid; grid-template-columns: 1fr; gap: 0; }
+    .garantie { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--gris-clair); }
+    .garantie:last-child { border-bottom: none; }
+    .garantie-ico {
+      width: 48px; height: 48px; border-radius: 50%; background: var(--rose-clair); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .garantie strong { display: block; font-size: 14px; font-weight: 600; }
+    .garantie span { font-size: 13px; color: var(--gris); }
+    @media (min-width: 760px) {
+      .garanties-grille { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .garantie { border-bottom: none; padding: 26px 0; justify-content: center; }
+    }
+
+    /* Catégories */
+    .cats-grille { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cat-carte { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--ombre); text-align: left; }
+    .cat-carte .media { aspect-ratio: 4 / 5; }
+    .cat-carte::after {
+      content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(30,30,30,.65));
+    }
+    .cat-carte .cat-nom {
+      position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 14px; color: var(--blanc);
+      font-family: var(--titre); font-size: 18px; line-height: 1.2;
+    }
+    .cat-carte .cat-nom small { display: block; font-family: var(--texte); font-size: 12px; opacity: .85; margin-top: 4px; }
+    .cat-carte:hover img { transform: scale(1.06); }
+    @media (min-width: 760px) { .cats-grille { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+    @media (min-width: 1100px) { .cats-grille { grid-template-columns: repeat(6, 1fr); } .cat-carte .media { aspect-ratio: 3 / 4; } }
+
+    /* Grille produits */
+    .grille-produits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    @media (min-width: 760px) { .grille-produits { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+    @media (min-width: 1100px) { .grille-produits { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+
+    /* Carte produit */
+    .carte {
+      background: var(--blanc); border-radius: var(--radius); overflow: hidden; box-shadow: var(--ombre);
+      display: flex; flex-direction: column; transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .carte:hover { transform: translateY(-4px); box-shadow: var(--ombre-forte); }
+    .carte:hover .media img { transform: scale(1.05); }
+    .carte .media { cursor: pointer; }
+    .carte-corps { padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .carte-cat { font-size: 11px; color: var(--or-fonce); text-transform: uppercase; letter-spacing: .1em; }
+    .carte-nom { font-size: 14px; font-weight: 500; line-height: 1.35; cursor: pointer; }
+    .prix { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .prix strong { font-size: 16px; font-weight: 600; }
+    .prix del { font-size: 13px; color: var(--gris); }
+    .carte-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 6px; }
+    .carte-actions .btn { flex: 1; padding: 10px 12px; font-size: 13px; }
+    .btn-wa-mini {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--vert-wa); color: var(--blanc);
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s, transform .2s;
+    }
+    .btn-wa-mini:hover { background: var(--vert-wa-fonce); transform: scale(1.06); }
+    .btn-wa-mini svg { width: 20px; height: 20px; }
+    @media (max-width: 420px) {
+      .carte-actions .btn { font-size: 12px; padding: 10px 8px; }
+    }
+
+    /* Carrousel best-sellers */
+    .carrousel-wrap { position: relative; }
+    .carrousel {
+      display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: 14px; overflow-x: auto;
+      scroll-snap-type: x mandatory; padding: 4px 16px 18px; margin: 0 -16px; scrollbar-width: none;
+    }
+    .carrousel::-webkit-scrollbar { display: none; }
+    .carrousel .carte { scroll-snap-align: start; }
+    .carrousel-nav { display: none; }
+    @media (min-width: 760px) { .carrousel { grid-auto-columns: 32%; } }
+    @media (min-width: 1100px) {
+      .carrousel { grid-auto-columns: calc((100% - 72px) / 4); gap: 24px; margin: 0; padding: 4px 0 18px; }
+      .carrousel-nav { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 14px; }
+      .carrousel-nav button {
+        width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--noir); font-size: 18px;
+        transition: background .2s, color .2s;
+      }
+      .carrousel-nav button:hover { background: var(--noir); color: var(--blanc); }
+    }
+
+    /* Avis clientes */
+    .avis-fond { background: var(--rose-clair); }
+    .avis-grille { display: grid; gap: 14px; }
+    .avis {
+      background: var(--blanc); border-radius: var(--radius); padding: 22px; box-shadow: var(--ombre);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .etoiles { color: var(--or); letter-spacing: 2px; font-size: 16px; }
+    .avis p { font-size: 14px; color: #3c3836; }
+    .avis-auteur { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--or); color: var(--blanc);
+      display: flex; align-items: center; justify-content: center; font-weight: 600;
+    }
+    .avis-auteur strong { display: block; font-size: 14px; }
+    .avis-auteur span { font-size: 12px; color: var(--gris); }
+    @media (min-width: 760px) { .avis-grille { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+    @media (min-width: 1100px) { .avis-grille { grid-template-columns: repeat(4, 1fr); } }
+
+    /* Instagram */
+    .insta-grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 28px; }
+    .insta-grille a { position: relative; border-radius: var(--radius-sm); overflow: hidden; }
+    .insta-grille .media { aspect-ratio: 1; }
+    .insta-grille a::after {
+      content: "♡"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(30,30,30,.35); color: var(--blanc); font-size: 28px; opacity: 0; transition: opacity .3s;
+    }
+    .insta-grille a:hover::after { opacity: 1; }
+    @media (min-width: 760px) { .insta-grille { grid-template-columns: repeat(6, 1fr); gap: 12px; } }
+    .centre { text-align: center; }
+
+    /* =========================================================
+       7. BOUTIQUE (catalogue + filtres)
+       ========================================================= */
+    .page-titre { padding: 36px 0 20px; text-align: center; }
+    .page-titre h1 { font-size: clamp(30px, 6vw, 46px); }
+    .page-titre p { color: var(--gris); margin-top: 6px; }
+
+    .boutique-layout { display: grid; gap: 24px; padding-bottom: 64px; }
+    .barre-outils { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; }
+    .barre-outils .resultats { font-size: 13px; color: var(--gris); }
+    .btn-filtres { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--noir); font-size: 14px; font-weight: 500; }
+    .select {
+      padding: 10px 36px 10px 14px; border-radius: 999px; border: 1.5px solid var(--gris-clair); background: var(--blanc);
+      font-size: 14px; appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E1E1E' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+    }
+
+    .filtres {
+      position: fixed; inset: auto 0 0 0; z-index: 95; background: var(--blanc); border-radius: 22px 22px 0 0;
+      padding: 20px 16px calc(20px + env(safe-area-inset-bottom)); max-height: 86vh; overflow-y: auto;
+      transform: translateY(105%); transition: transform .35s ease; box-shadow: var(--ombre-forte);
+    }
+    .filtres.ouvert { transform: none; }
+    .filtres-entete { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .filtres-entete h3 { font-size: 22px; }
+    .filtre-bloc { padding: 16px 0; border-bottom: 1px solid var(--gris-clair); }
+    .filtre-bloc h4 { font-family: var(--texte); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+    .puces { display: flex; flex-wrap: wrap; gap: 8px; }
+    .puce {
+      padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--gris-clair); font-size: 13px; background: var(--blanc);
+      transition: all .2s;
+    }
+    .puce:hover { border-color: var(--noir); }
+    .puce.on { background: var(--noir); color: var(--blanc); border-color: var(--noir); }
+    .prix-range { width: 100%; accent-color: var(--or); }
+    .prix-valeurs { display: flex; justify-content: space-between; font-size: 13px; color: var(--gris); margin-top: 6px; }
+    .filtres-pied { display: flex; gap: 10px; padding-top: 16px; }
+    .filtres-pied .btn { flex: 1; }
+    .vide { text-align: center; padding: 48px 16px; color: var(--gris); grid-column: 1 / -1; }
+
+    @media (min-width: 960px) {
+      .boutique-layout { grid-template-columns: 250px 1fr; gap: 36px; }
+      .filtres {
+        position: sticky; top: calc(var(--header-h) + 20px); inset: auto; transform: none; border-radius: var(--radius);
+        box-shadow: var(--ombre); max-height: calc(100vh - var(--header-h) - 40px); align-self: start; z-index: 1;
+      }
+      .btn-filtres, .filtres .fermer-filtres, .filtres-pied .btn-noir { display: none; }
+    }
+
+    /* Voile sombre partagé (menu, panier, filtres, modales) */
+    .voile {
+      position: fixed; inset: 0; background: rgba(30, 30, 30, .45); z-index: 80; opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .voile.on { opacity: 1; pointer-events: auto; }
+
+    /* =========================================================
+       8. FICHE PRODUIT
+       ========================================================= */
+    .fil { font-size: 13px; color: var(--gris); padding: 18px 0; }
+    .fil a:hover { color: var(--noir); text-decoration: underline; }
+    .fiche { display: grid; gap: 28px; padding-bottom: 40px; }
+    .galerie-principale { border-radius: var(--radius); overflow: hidden; box-shadow: var(--ombre); }
+    .miniatures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+    .miniatures button { border-radius: var(--radius-sm); overflow: hidden; border: 2px solid transparent; transition: border-color .2s; }
+    .miniatures button.on { border-color: var(--or); }
+    .miniatures .media .ph { font-size: 10px; padding: 4px; }
+    .fiche-infos h1 { font-size: clamp(26px, 5vw, 36px); margin: 8px 0 10px; }
+    .fiche-infos .prix strong { font-size: 26px; }
+    .fiche-infos .prix del { font-size: 17px; }
+    .badge-inline {
+      display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      background: var(--or); color: var(--blanc);
+    }
+    .badge-inline.promo { background: var(--noir); }
+    .badge-inline.stock { background: var(--rose-fonce); }
+    .bandeau-cod {
+      display: flex; align-items: center; gap: 10px; margin: 16px 0; padding: 12px 14px; border-radius: var(--radius-sm);
+      background: var(--rose-clair); border: 1px dashed var(--rose-fonce); font-size: 14px; font-weight: 500;
+    }
+    .fiche-desc { color: #3c3836; margin-bottom: 18px; }
+    .option { margin-bottom: 18px; }
+    .option-titre { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+    .option-titre span { font-weight: 400; color: var(--gris); }
+    .lien { font-size: 13px; text-decoration: underline; color: var(--or-fonce); font-weight: 500; }
+    .tailles { display: flex; flex-wrap: wrap; gap: 8px; }
+    .taille {
+      min-width: 50px; height: 46px; padding: 0 12px; border-radius: var(--radius-sm); border: 1.5px solid var(--gris-clair);
+      background: var(--blanc); font-weight: 500; transition: all .2s;
+    }
+    .taille:hover:not(:disabled) { border-color: var(--noir); }
+    .taille.on { background: var(--noir); color: var(--blanc); border-color: var(--noir); }
+    .taille:disabled { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
+    .couleurs { display: flex; gap: 12px; flex-wrap: wrap; }
+    .pastille {
+      width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--blanc); box-shadow: 0 0 0 1.5px var(--gris-clair);
+      transition: box-shadow .2s;
+    }
+    .pastille.on { box-shadow: 0 0 0 2.5px var(--noir); }
+    .qte { display: inline-flex; align-items: center; border: 1.5px solid var(--gris-clair); border-radius: 999px; background: var(--blanc); }
+    .qte button { width: 44px; height: 44px; font-size: 20px; }
+    .qte input { width: 44px; text-align: center; border: none; background: transparent; font-weight: 600; -moz-appearance: textfield; }
+    .qte input::-webkit-outer-spin-button, .qte input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .fiche-btns { display: grid; gap: 10px; margin: 22px 0 18px; }
+    .fiche-btns .btn { padding: 16px 20px; white-space: normal; text-align: center; }
+    .rassurance { display: grid; gap: 10px; padding: 16px; background: var(--blanc); border-radius: var(--radius-sm); font-size: 13px; }
+    .rassurance div { display: flex; gap: 10px; align-items: flex-start; }
+    .details { margin-top: 18px; border-top: 1px solid var(--gris-clair); }
+    .details details { border-bottom: 1px solid var(--gris-clair); padding: 14px 0; }
+    .details summary { cursor: pointer; font-weight: 600; font-size: 14px; list-style: none; display: flex; justify-content: space-between; }
+    .details summary::after { content: "+"; font-size: 18px; font-weight: 400; }
+    .details details[open] summary::after { content: "–"; }
+    .details details p, .details details ul { margin-top: 10px; font-size: 14px; color: #3c3836; }
+    .details ul { padding-left: 18px; }
+    @media (min-width: 900px) {
+      .fiche { grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: start; }
+      .fiche-galerie { position: sticky; top: calc(var(--header-h) + 20px); }
+    }
+
+    /* =========================================================
+       9. À PROPOS & CONTACT
+       ========================================================= */
+    .apropos-grille { display: grid; gap: 28px; align-items: center; }
+    .apropos-grille .media { border-radius: var(--radius); box-shadow: var(--ombre); aspect-ratio: 4 / 5; }
+    .apropos-texte h2 { font-size: clamp(26px, 5vw, 36px); margin-bottom: 14px; }
+    .apropos-texte p { margin-bottom: 14px; color: #3c3836; }
+    .chiffres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .chiffre { background: var(--blanc); border-radius: var(--radius-sm); padding: 14px 8px; text-align: center; box-shadow: var(--ombre); }
+    .chiffre strong { display: block; font-family: var(--titre); font-size: 24px; color: var(--or-fonce); }
+    .chiffre span { font-size: 12px; color: var(--gris); }
+    .valeurs { display: grid; gap: 14px; }
+    .valeur { background: var(--blanc); padding: 26px 22px; border-radius: var(--radius); box-shadow: var(--ombre); text-align: center; }
+    .valeur .garantie-ico { margin: 0 auto 14px; width: 58px; height: 58px; font-size: 26px; }
+    .valeur h3 { font-size: 20px; margin-bottom: 8px; }
+    .valeur p { font-size: 14px; color: var(--gris); }
+    @media (min-width: 860px) {
+      .apropos-grille { grid-template-columns: 1fr 1fr; gap: 56px; }
+      .valeurs { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+
+    .contact-grille { display: grid; gap: 20px; padding-bottom: 64px; }
+    .contact-carte { background: var(--blanc); border-radius: var(--radius); padding: 24px; box-shadow: var(--ombre); }
+    .contact-ligne { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--gris-clair); }
+    .contact-ligne:last-of-type { border-bottom: none; }
+    .contact-ligne .garantie-ico { width: 42px; height: 42px; font-size: 18px; }
+    .contact-ligne strong { display: block; font-size: 14px; }
+    .contact-ligne span, .contact-ligne a { font-size: 14px; color: var(--gris); }
+    .horaires { width: 100%; font-size: 14px; border-collapse: collapse; }
+    .horaires td { padding: 4px 0; }
+    .horaires td:last-child { text-align: right; color: var(--gris); }
+    .carte-map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--ombre); min-height: 340px; background: var(--creme-2); }
+    .carte-map iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
+    .contact-btns { display: grid; gap: 10px; margin-top: 18px; }
+    @media (min-width: 900px) { .contact-grille { grid-template-columns: 1fr 1.3fr; gap: 28px; } }
+
+    /* =========================================================
+       10. FOOTER
+       ========================================================= */
+    .footer { background: var(--noir); color: #d9d3cb; padding: 52px 0 calc(100px + env(safe-area-inset-bottom)); font-size: 14px; }
+    .footer-grille { display: grid; gap: 32px; grid-template-columns: 1fr 1fr; }
+    .footer-marque { grid-column: 1 / -1; }
+    .footer .logo { color: var(--creme); display: inline-block; margin-bottom: 10px; }
+    .footer h4 { font-family: var(--texte); color: var(--creme); font-size: 13px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px; font-weight: 600; }
+    .footer ul { list-style: none; display: grid; gap: 8px; }
+    .footer ul a:hover, .footer ul button:hover { color: var(--or); }
+    .footer ul button { font-size: 14px; color: inherit; text-align: left; }
+    .reseaux { display: flex; gap: 10px; margin-top: 16px; }
+    .reseaux a {
+      width: 42px; height: 42px; border-radius: 50%; border: 1px solid #4a4542; display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .reseaux a:hover { background: var(--or); border-color: var(--or); }
+    .reseaux svg { width: 19px; height: 19px; fill: currentColor; }
+    .paiement { display: flex; flex-wrap: wrap; gap: 8px; }
+    .paiement span { border: 1px solid #4a4542; border-radius: 8px; padding: 6px 10px; font-size: 12px; }
+    .footer-bas { border-top: 1px solid #3a3633; margin-top: 36px; padding-top: 20px; text-align: center; font-size: 13px; color: #a29a91; }
+    @media (min-width: 860px) {
+      .footer-grille { grid-template-columns: 1.6fr 1fr 1fr 1.3fr; }
+      .footer-marque { grid-column: auto; }
+      .footer { padding-bottom: 40px; }
+    }
+
+    /* =========================================================
+       11. BOUTON WHATSAPP FLOTTANT
+       ========================================================= */
+    .wa-flottant {
+      position: fixed; right: 16px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 70;
+      width: 60px; height: 60px; border-radius: 50%; background: var(--vert-wa); color: var(--blanc);
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(37, 211, 102, .45);
+    }
+    .wa-flottant svg { width: 32px; height: 32px; position: relative; z-index: 1; }
+    .wa-flottant::before {
+      content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--vert-wa);
+      animation: pulse 2s ease-out infinite;
+    }
+    @keyframes pulse { 0% { transform: scale(1); opacity: .65; } 100% { transform: scale(1.7); opacity: 0; } }
+    .wa-menu {
+      position: fixed; right: 16px; bottom: calc(88px + env(safe-area-inset-bottom)); z-index: 71; width: min(300px, calc(100vw - 32px));
+      background: var(--blanc); border-radius: var(--radius); box-shadow: var(--ombre-forte); overflow: hidden;
+      transform: translateY(12px) scale(.96); opacity: 0; pointer-events: none; transition: all .25s ease; transform-origin: bottom right;
+    }
+    .wa-menu.ouvert { transform: none; opacity: 1; pointer-events: auto; }
+    .wa-menu-tete { background: #075E54; color: var(--blanc); padding: 14px 16px; }
+    .wa-menu-tete strong { display: block; font-size: 15px; }
+    .wa-menu-tete span { font-size: 12px; opacity: .85; }
+    .wa-menu button { display: block; width: 100%; text-align: left; padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--gris-clair); }
+    .wa-menu button:hover { background: var(--creme); }
+
+    /* =========================================================
+       12. PANIER (tiroir latéral)
+       ========================================================= */
+    .panier {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 96; width: min(420px, 100%); background: var(--creme);
+      transform: translateX(100%); transition: transform .35s ease; display: flex; flex-direction: column;
+    }
+    .panier.ouvert { transform: none; }
+    .panier-tete { display: flex; justify-content: space-between; align-items: center; padding: 18px 16px; border-bottom: 1px solid var(--gris-clair); }
+    .panier-tete h3 { font-size: 22px; }
+    .panier-liste { flex: 1; overflow-y: auto; padding: 8px 16px; }
+    .panier-article { display: grid; grid-template-columns: 76px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--gris-clair); }
+    .panier-article .media { border-radius: var(--radius-sm); }
+    .panier-article .media .ph { font-size: 10px; padding: 4px; }
+    .pa-nom { font-size: 14px; font-weight: 500; line-height: 1.3; }
+    .pa-var { font-size: 12px; color: var(--gris); margin: 2px 0 8px; }
+    .pa-bas { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .pa-bas .qte button { width: 34px; height: 34px; font-size: 16px; }
+    .pa-bas .qte span { min-width: 22px; text-align: center; font-weight: 600; font-size: 14px; }
+    .pa-suppr { font-size: 12px; color: var(--danger); text-decoration: underline; margin-top: 6px; }
+    .panier-vide { text-align: center; padding: 56px 16px; color: var(--gris); }
+    .panier-vide div { font-size: 44px; margin-bottom: 10px; }
+    .panier-pied { padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--gris-clair); background: var(--blanc); }
+    .panier-total { display: flex; justify-content: space-between; font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .panier-pied small { display: block; font-size: 12px; color: var(--gris); margin-bottom: 14px; }
+
+    /* =========================================================
+       13. MODALES (commande COD, guide des tailles)
+       ========================================================= */
+    .modale {
+      position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-end; justify-content: center;
+      pointer-events: none;
+    }
+    .modale-boite {
+      position: relative; background: var(--creme); width: 100%; max-width: 560px; max-height: 94vh; overflow-y: auto;
+      border-radius: 22px 22px 0 0; padding: 22px 16px calc(22px + env(safe-area-inset-bottom));
+      transform: translateY(105%); transition: transform .35s ease; pointer-events: auto; box-shadow: var(--ombre-forte);
+    }
+    .modale.ouvert .modale-boite { transform: none; }
+    .modale:not(.ouvert) .modale-boite { pointer-events: none; }
+    .modale-tete { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+    .modale-tete h3 { font-size: 22px; }
+    .modale-tete p { font-size: 13px; color: var(--gris); margin-top: 2px; }
+    .fermer { width: 40px; height: 40px; border-radius: 50%; background: var(--blanc); font-size: 22px; line-height: 1; flex-shrink: 0; }
+    .fermer:hover { background: var(--rose-clair); }
+    @media (min-width: 640px) {
+      .modale { align-items: center; padding: 20px; }
+      .modale-boite { border-radius: 22px; padding: 28px; transform: translateY(30px); opacity: 0; transition: all .3s ease; }
+      .modale.ouvert .modale-boite { opacity: 1; }
+    }
+
+    /* Formulaire */
+    .form-grille { display: grid; gap: 14px; }
+    .champ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    .champ label b { color: var(--danger); font-weight: 600; }
+    .champ input, .champ select, .champ textarea {
+      width: 100%; padding: 13px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--gris-clair); background: var(--blanc);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .champ select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E1E1E' stroke-width='1.6' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .champ input:focus, .champ select:focus, .champ textarea:focus { outline: none; border-color: var(--or); box-shadow: 0 0 0 3px rgba(201, 169, 110, .2); }
+    .champ.erreur input, .champ.erreur select, .champ.erreur textarea { border-color: var(--danger); }
+    .champ .msg-erreur { display: none; color: var(--danger); font-size: 12px; margin-top: 4px; }
+    .champ.erreur .msg-erreur { display: block; }
+    .champ textarea { resize: vertical; min-height: 70px; }
+    .trio { display: grid; grid-template-columns: 1fr 1fr 90px; gap: 10px; }
+    .duo { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 520px) { .duo { grid-template-columns: 1fr 1fr; } }
+
+    .recap { background: var(--blanc); border-radius: var(--radius); padding: 16px; margin: 18px 0 14px; font-size: 14px; }
+    .recap h4 { font-family: var(--texte); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+    .recap-ligne { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; }
+    .recap-ligne span:first-child { color: var(--gris); }
+    .recap-articles .recap-ligne span:first-child { color: var(--noir); }
+    .recap-total { border-top: 1.5px dashed var(--gris-clair); margin-top: 8px; padding-top: 10px; font-weight: 600; font-size: 16px; }
+    .recap-total span:last-child { color: var(--or-fonce); }
+    .gratuit { color: var(--vert-wa-fonce); font-weight: 600; }
+    .note-cod { font-size: 12px; color: var(--gris); text-align: center; margin-top: 10px; }
+
+    .table-tailles { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--blanc); border-radius: var(--radius-sm); overflow: hidden; }
+    .table-tailles th, .table-tailles td { padding: 10px 8px; text-align: center; border-bottom: 1px solid var(--gris-clair); }
+    .table-tailles th { background: var(--rose-clair); font-weight: 600; font-size: 13px; }
+    .table-tailles tr:last-child td { border-bottom: none; }
+
+    /* Notification (toast) */
+    .toast {
+      position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom)); z-index: 120;
+      transform: translate(-50%, 20px); background: var(--noir); color: var(--blanc); padding: 12px 20px; border-radius: 999px;
+      font-size: 14px; opacity: 0; pointer-events: none; transition: all .3s ease; max-width: calc(100vw - 32px); text-align: center;
+    }
+    .toast.on { opacity: 1; transform: translate(-50%, 0); }
+  </style>
+</head>
+<body>
+
+  <!-- ============ BARRE D'ANNONCE ============ -->
+  <div class="annonce" aria-label="Annonces">
+    <div class="annonce-piste" id="annoncePiste"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="container header-inner">
+      <button class="icon-btn burger" id="btnBurger" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <a href="#accueil" class="logo">Douja<em>boutique</em></a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#accueil" data-lien="accueil">Accueil</a>
+        <a href="#boutique" data-lien="boutique">Boutique</a>
+        <a href="#nouveautes" data-lien="nouveautes">Nouveautés</a>
+        <a href="#apropos" data-lien="apropos">À propos</a>
+        <a href="#contact" data-lien="contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="btnPanier" aria-label="Ouvrir le panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span class="compteur" id="compteurPanier">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu mobile (burger) -->
+  <div class="menu-mobile" id="menuMobile" aria-hidden="true">
+    <div class="menu-mobile-top">
+      <span class="logo">Douja<em>boutique</em></span>
+      <button class="fermer" data-fermer-menu aria-label="Fermer le menu">×</button>
+    </div>
+    <nav>
+      <a href="#accueil" data-fermer-menu>Accueil</a>
+      <a href="#boutique" data-fermer-menu>Boutique</a>
+      <a href="#nouveautes" data-fermer-menu>Nouveautés <small style="font-size:14px">🔥</small></a>
+      <a href="#apropos" data-fermer-menu>À propos</a>
+      <a href="#contact" data-fermer-menu>Contact</a>
+    </nav>
+    <div class="menu-bas">
+      <button class="btn btn-wa btn-bloc" data-wa-info>
+        <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Écrire sur WhatsApp
+      </button>
+      <a class="btn btn-contour btn-bloc" href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener">@doujaboutique sur Instagram</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ======================================================
+         PAGE : ACCUEIL
+         ====================================================== -->
+    <section class="page" id="page-accueil" data-page="accueil">
+
+      <!-- Hero plein écran -->
+      <div class="hero">
+        <div class="media" id="heroMedia"></div>
+        <div class="container hero-contenu">
+          <span class="hero-tag">✨ Nouvel arrivage de la semaine</span>
+          <h1>Ljadid wsel 🔥<small>La nouvelle collection est arrivée</small></h1>
+          <p>Robes, mailles et manteaux sélectionnés pour vous à Fès.</p>
+          <div class="hero-btns">
+            <a href="#boutique" class="btn btn-blanc">Découvrir la boutique</a>
+            <button class="btn btn-wa" data-wa-info>
+              <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Commander sur WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bandeau des 3 garanties -->
+      <div class="garanties">
+        <div class="container garanties-grille">
+          <div class="garantie"><div class="garantie-ico">🚚</div><div><strong>Livraison partout au Maroc</strong><span>24-72h selon votre ville</span></div></div>
+          <div class="garantie"><div class="garantie-ico">💵</div><div><strong>Paiement à la livraison</strong><span>Vous payez en recevant votre colis</span></div></div>
+          <div class="garantie"><div class="garantie-ico">🔁</div><div><strong>Échange possible sur la taille</strong><span>Simple et rapide, sans stress</span></div></div>
+        </div>
+      </div>
+
+      <!-- Catégories -->
+      <div class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Nos univers</span>
+            <h2>Trouvez votre style</h2>
+          </div>
+          <div class="cats-grille" id="grilleCategories"></div>
+        </div>
+      </div>
+
+      <!-- Nouvel arrivage : 8 produits -->
+      <div class="section" style="padding-top:0">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Ljadid 🔥</span>
+            <h2>Nouvel arrivage</h2>
+            <p>Les pièces arrivées cette semaine, en quantités limitées.</p>
+          </div>
+          <div class="grille-produits" id="grilleNouveautes"></div>
+          <div class="centre" style="margin-top:28px">
+            <a href="#boutique" class="btn btn-contour">Voir toute la boutique</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Best-sellers : carrousel horizontal -->
+      <div class="section" style="background:var(--creme-2)">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Tbarkellah 3la l'look ✨</span>
+            <h2>Best-sellers</h2>
+            <p>Les coups de cœur de nos clientes.</p>
+          </div>
+          <div class="carrousel-wrap">
+            <div class="carrousel-nav">
+              <button data-carrousel="-1" aria-label="Précédent">←</button>
+              <button data-carrousel="1" aria-label="Suivant">→</button>
+            </div>
+            <div class="carrousel" id="carrouselBest"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avis clientes -->
+      <div class="section avis-fond">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Avis vérifiés</span>
+            <h2>Nos clientes en parlent</h2>
+          </div>
+          <div class="avis-grille" id="grilleAvis"></div>
+        </div>
+      </div>
+
+      <!-- Instagram -->
+      <div class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">+93K abonnées</span>
+            <h2>Rejoignez-nous sur Instagram</h2>
+            <p>Les nouveautés en story chaque semaine.</p>
+          </div>
+          <div class="insta-grille" id="grilleInsta"></div>
+          <div class="centre">
+            <a href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener" class="btn btn-noir">
+              <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-insta"/></svg> Suivez-nous @doujaboutique
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PAGE : BOUTIQUE
+         ====================================================== -->
+    <section class="page" id="page-boutique" data-page="boutique">
+      <div class="container">
+        <div class="page-titre">
+          <h1 id="titreBoutique">La boutique</h1>
+          <p>Livraison partout au Maroc • Paiement à la livraison</p>
+        </div>
+
+        <div class="boutique-layout">
+          <!-- Panneau de filtres (tiroir sur mobile, colonne sur desktop) -->
+          <aside class="filtres" id="panneauFiltres" aria-label="Filtres">
+            <div class="filtres-entete">
+              <h3>Filtres</h3>
+              <button class="fermer fermer-filtres" data-fermer-filtres aria-label="Fermer les filtres">×</button>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Catégorie</h4>
+              <div class="puces" id="filtreCategories"></div>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Taille</h4>
+              <div class="puces" id="filtreTailles"></div>
+            </div>
+            <div class="filtre-bloc">
+              <h4>Prix maximum</h4>
+              <input type="range" class="prix-range" id="filtrePrix" min="149" max="690" step="10" value="690" />
+              <div class="prix-valeurs"><span>149 DH</span><span id="prixMaxLabel">690 DH</span></div>
+            </div>
+            <div class="filtres-pied">
+              <button class="btn btn-contour" id="btnReinitFiltres">Réinitialiser</button>
+              <button class="btn btn-noir" data-fermer-filtres>Voir les produits</button>
+            </div>
+          </aside>
+
+          <div>
+            <div class="barre-outils">
+              <button class="btn-filtres" id="btnOuvrirFiltres">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                Filtres
+              </button>
+              <span class="resultats" id="nbResultats"></span>
+              <select class="select" id="triProduits" aria-label="Trier">
+                <option value="nouveautes">Nouveautés</option>
+                <option value="prix-asc">Prix croissant</option>
+                <option value="prix-desc">Prix décroissant</option>
+              </select>
+            </div>
+            <div class="grille-produits" id="grilleBoutique"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PAGE : FICHE PRODUIT (remplie par JS)
+         ====================================================== -->
+    <section class="page" id="page-produit" data-page="produit">
+      <div class="container" id="ficheProduit"></div>
+      <div class="section" style="padding-top:24px">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Sélection pour vous</span>
+            <h2>Vous aimerez aussi</h2>
+          </div>
+          <div class="grille-produits" id="grilleSimilaires"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PAGE : À PROPOS
+         ====================================================== -->
+    <section class="page" id="page-apropos" data-page="apropos">
+      <div class="container">
+        <div class="page-titre">
+          <h1>Notre histoire</h1>
+          <p>De notre quartier de Narjiss à toutes les villes du Maroc.</p>
+        </div>
+        <div class="apropos-grille" style="padding-bottom:56px">
+          <div class="media reveal" id="photoBoutique"></div>
+          <div class="apropos-texte reveal">
+            <h2>Une boutique de quartier devenue une référence</h2>
+            <p>Doujaboutique est née à Fès, sur l'avenue El Wafae à Narjiss, avec une idée simple : proposer aux femmes des pièces élégantes, tendance et accessibles, choisies une à une avec amour.</p>
+            <p>Au fil des saisons, nos clientes ont partagé leurs looks, et la boutique est devenue une vraie communauté sur Instagram. Aujourd'hui, plus de 93 000 abonnées nous suivent pour découvrir chaque semaine le nouvel arrivage.</p>
+            <p>Qu'il s'agisse d'une robe pour un mariage, d'un pull douillet pour l'hiver ou d'un ensemble pour tous les jours, on vous conseille comme une amie. Tbarkellah 3la l'look ✨</p>
+            <div class="chiffres">
+              <div class="chiffre"><strong>93K+</strong><span>abonnées</span></div>
+              <div class="chiffre"><strong>52</strong><span>arrivages / an</span></div>
+              <div class="chiffre"><strong>60+</strong><span>villes livrées</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section" style="background:var(--creme-2)">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Ce qui nous guide</span>
+            <h2>Nos valeurs</h2>
+          </div>
+          <div class="valeurs">
+            <div class="valeur reveal"><div class="garantie-ico">💎</div><h3>Qualité</h3><p>Des matières agréables et des finitions soignées, vérifiées pièce par pièce avant chaque envoi.</p></div>
+            <div class="valeur reveal"><div class="garantie-ico">✨</div><h3>Nouveautés chaque semaine</h3><p>Un nouvel arrivage chaque semaine pour rester toujours à la mode, sans se ruiner.</p></div>
+            <div class="valeur reveal"><div class="garantie-ico">🤍</div><h3>Proche de vous</h3><p>Conseils sur WhatsApp, échange de taille facile et un vrai suivi de chaque commande.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PAGE : CONTACT
+         ====================================================== -->
+    <section class="page" id="page-contact" data-page="contact">
+      <div class="container">
+        <div class="page-titre">
+          <h1>Contact</h1>
+          <p>Passez nous voir à Fès ou écrivez-nous sur WhatsApp.</p>
+        </div>
+        <div class="contact-grille">
+          <div class="contact-carte">
+            <div class="contact-ligne"><div class="garantie-ico">📍</div><div><strong>Adresse</strong><span>Avenue El Wafae, Narjiss, Fès, Maroc</span></div></div>
+            <div class="contact-ligne"><div class="garantie-ico">💬</div><div><strong>WhatsApp</strong><a href="#" data-wa-info id="lienWaContact">Écrivez-nous</a></div></div>
+            <div class="contact-ligne"><div class="garantie-ico">📸</div><div><strong>Instagram</strong><a href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener">@doujaboutique</a></div></div>
+            <div class="contact-ligne">
+              <div class="garantie-ico">🕒</div>
+              <div style="flex:1">
+                <strong>Horaires</strong>
+                <table class="horaires">
+                  <tr><td>Lundi – Samedi</td><td>10h00 – 21h00</td></tr>
+                  <tr><td>Dimanche</td><td>15h00 – 21h00</td></tr>
+                  <tr><td>WhatsApp</td><td>7j/7</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="contact-btns">
+              <button class="btn btn-wa btn-bloc" data-wa-info>
+                <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Écrire sur WhatsApp
+              </button>
+              <a class="btn btn-contour btn-bloc" href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener">Suivre @doujaboutique</a>
+            </div>
+          </div>
+          <div class="carte-map">
+            <iframe title="Doujaboutique sur Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Avenue%20El%20Wafae%2C%20Narjiss%2C%20F%C3%A8s%2C%20Maroc&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grille">
+        <div class="footer-marque">
+          <a href="#accueil" class="logo">Douja<em>boutique</em></a>
+          <p>Prêt-à-porter féminin à Fès. Robes, mailles, manteaux et ensembles, avec un nouvel arrivage chaque semaine.</p>
+          <div class="reseaux">
+            <a href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><use href="#ico-insta"/></svg></a>
+            <a href="#" data-wa-info aria-label="WhatsApp"><svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg></a>
+            <a href="https://www.tiktok.com/@doujaboutique" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><use href="#ico-tiktok"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Liens rapides</h4>
+          <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#boutique">Boutique</a></li>
+            <li><a href="#nouveautes">Nouveautés</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Catégories</h4>
+          <ul id="footerCategories"></ul>
+        </div>
+        <div>
+          <h4>Livraison & paiement</h4>
+          <div class="paiement">
+            <span>🚚 Amana</span><span>📦 CTM Messagerie</span><span>🛵 Livreur Fès</span><span>💵 Paiement à la livraison</span>
+          </div>
+          <p style="margin-top:12px;font-size:13px">Livraison gratuite à Fès, 30 DH ailleurs au Maroc.</p>
+        </div>
+      </div>
+      <div class="footer-bas">© 2026 Doujaboutique – Fès, Maroc</div>
+    </div>
+  </footer>
+
+  <!-- ============ BOUTON WHATSAPP FLOTTANT ============ -->
+  <div class="wa-menu" id="waMenu" role="menu">
+    <div class="wa-menu-tete"><strong>Doujaboutique</strong><span>Réponse rapide sur WhatsApp 💬</span></div>
+    <button data-wa-panier role="menuitem">🛍️ Commander mon panier</button>
+    <button data-wa-info role="menuitem">✨ Infos sur les nouveautés</button>
+  </div>
+  <button class="wa-flottant" id="waFlottant" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg>
+  </button>
+
+  <!-- ============ PANIER (tiroir) ============ -->
+  <aside class="panier" id="panier" aria-label="Panier" aria-hidden="true">
+    <div class="panier-tete">
+      <h3>Mon panier</h3>
+      <button class="fermer" data-fermer-panier aria-label="Fermer le panier">×</button>
+    </div>
+    <div class="panier-liste" id="panierListe"></div>
+    <div class="panier-pied" id="panierPied">
+      <div class="panier-total"><span>Sous-total</span><span id="panierTotal">0 DH</span></div>
+      <small>Livraison gratuite à Fès, 30 DH ailleurs. Paiement à la livraison.</small>
+      <button class="btn btn-wa btn-bloc" id="btnCommanderPanier">
+        <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Commander tout le panier sur WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- Voile sombre partagé -->
+  <div class="voile" id="voile"></div>
+
+  <!-- ============ MODALE : FORMULAIRE DE COMMANDE COD ============ -->
+  <div class="modale" id="modaleCommande" role="dialog" aria-modal="true" aria-labelledby="titreCommande" aria-hidden="true">
+    <div class="modale-boite">
+      <div class="modale-tete">
+        <div>
+          <h3 id="titreCommande">Finaliser ma commande</h3>
+          <p>💵 Paiement à la livraison • Aucun paiement en ligne</p>
+        </div>
+        <button class="fermer" data-fermer-modale aria-label="Fermer">×</button>
+      </div>
+
+      <form id="formCommande" novalidate>
+        <div class="form-grille">
+          <div class="champ" id="champNom">
+            <label for="fNom">Nom complet <b>*</b></label>
+            <input id="fNom" name="nom" type="text" autocomplete="name" placeholder="Ex. Salma Bennani" />
+            <div class="msg-erreur">Merci d'indiquer votre nom complet.</div>
+          </div>
+          <div class="duo">
+            <div class="champ" id="champTel">
+              <label for="fTel">Téléphone <b>*</b></label>
+              <input id="fTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" />
+              <div class="msg-erreur">Numéro marocain invalide (06 ou 07 + 8 chiffres).</div>
+            </div>
+            <div class="champ" id="champVille">
+              <label for="fVille">Ville <b>*</b></label>
+              <select id="fVille" name="ville"></select>
+              <div class="msg-erreur">Merci de choisir votre ville.</div>
+            </div>
+          </div>
+          <div class="champ" id="champAdresse">
+            <label for="fAdresse">Adresse complète <b>*</b></label>
+            <input id="fAdresse" name="adresse" type="text" autocomplete="street-address" placeholder="Quartier, rue, n° de maison / appartement" />
+            <div class="msg-erreur">Merci d'indiquer votre adresse de livraison.</div>
+          </div>
+
+          <!-- Variantes (visibles seulement pour une commande d'un seul produit) -->
+          <div class="trio" id="blocVariantes">
+            <div class="champ">
+              <label for="fTaille">Taille</label>
+              <select id="fTaille"></select>
+            </div>
+            <div class="champ">
+              <label for="fCouleur">Couleur</label>
+              <select id="fCouleur"></select>
+            </div>
+            <div class="champ">
+              <label for="fQte">Qté</label>
+              <input id="fQte" type="number" min="1" max="10" value="1" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="fNote">Note (facultatif)</label>
+            <textarea id="fNote" placeholder="Ex. livrer après 18h, appeler avant…"></textarea>
+          </div>
+        </div>
+
+        <!-- Récapitulatif -->
+        <div class="recap" id="recapCommande"></div>
+
+        <button type="submit" class="btn btn-wa btn-bloc" style="padding:16px">
+          <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Confirmer ma commande sur WhatsApp
+        </button>
+        <p class="note-cod">Vous serez redirigée vers WhatsApp avec votre commande déjà rédigée. Il suffit d'appuyer sur « Envoyer ».</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODALE : GUIDE DES TAILLES ============ -->
+  <div class="modale" id="modaleTailles" role="dialog" aria-modal="true" aria-labelledby="titreTailles" aria-hidden="true">
+    <div class="modale-boite">
+      <div class="modale-tete">
+        <div>
+          <h3 id="titreTailles">Guide des tailles</h3>
+          <p>Mesures du corps en centimètres</p>
+        </div>
+        <button class="fermer" data-fermer-modale aria-label="Fermer">×</button>
+      </div>
+      <table class="table-tailles">
+        <thead><tr><th>Taille</th><th>EU</th><th>Poitrine</th><th>Taille</th><th>Hanches</th></tr></thead>
+        <tbody>
+          <tr><td><b>S</b></td><td>36</td><td>82–86</td><td>64–68</td><td>90–94</td></tr>
+          <tr><td><b>M</b></td><td>38</td><td>86–90</td><td>68–72</td><td>94–98</td></tr>
+          <tr><td><b>L</b></td><td>40</td><td>90–96</td><td>72–78</td><td>98–104</td></tr>
+          <tr><td><b>XL</b></td><td>42</td><td>96–102</td><td>78–84</td><td>104–110</td></tr>
+          <tr><td><b>XXL</b></td><td>44</td><td>102–108</td><td>84–90</td><td>110–116</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--gris);margin-top:14px">💡 Entre deux tailles ? Prenez la plus grande, ou écrivez-nous sur WhatsApp pour un conseil. L'échange de taille est toujours possible.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Icônes SVG réutilisables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="ico-wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37A9.86 9.86 0 0 1 2.16 12C2.16 6.55 6.6 2.11 12.06 2.11a9.83 9.83 0 0 1 9.88 9.89c0 5.45-4.44 9.89-9.89 9.89zm8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.48-8.41z"/></symbol>
+    <symbol id="ico-insta" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.88 5.88 0 0 0-2.13 1.38A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13a5.88 5.88 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.13-1.38 5.88 5.88 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></symbol>
+    <symbol id="ico-tiktok" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .58.04.86.13V9.4a6.34 6.34 0 0 0-.86-.06 6.33 6.33 0 1 0 6.34 6.33V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></symbol>
+  </svg>
+
+  <script>
+    /* =========================================================
+       CONFIGURATION — à modifier facilement
+       ========================================================= */
+    // Numéro WhatsApp de la boutique (format international, sans + ni espaces)
+    const WHATSAPP_NUMBER = "212XXXXXXXXX";
+
+    // Frais de livraison
+    const FRAIS_LIVRAISON = 30;          // DH, partout au Maroc
+    const VILLE_LIVRAISON_GRATUITE = "Fès";
+
+    // Message par défaut du bouton WhatsApp flottant
+    const MESSAGE_INFO = "Salam, je veux des informations sur vos nouveautés";
+
+    // Liste des villes du formulaire de commande
+    const VILLES = ["Casablanca", "Rabat", "Fès", "Marrakech", "Tanger", "Meknès", "Agadir", "Oujda", "Kénitra", "Tétouan", "Salé", "El Jadida", "Nador", "Béni Mellal", "Safi", "Autre"];
+
+    const TOUTES_TAILLES = ["S", "M", "L", "XL", "XXL"];
+
+    /* Photos Unsplash (mode féminine). Si une image ne charge pas,
+       un bloc coloré avec le nom du produit s'affiche à la place. */
+    const U = (id, w = 800) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=75`;
+    const PHOTOS = {
+      robe1: U("photo-1595777457583-95e059d581b8"),
+      robe2: U("photo-1572804013309-59a88b7e92f1"),
+      robe3: U("photo-1515372039744-b8f02a3ae446"),
+      robe4: U("photo-1539008835657-9e8e9680c956"),
+      robe5: U("photo-1566174053879-31528523f8ae"),
+      robe6: U("photo-1594633312681-425c7b97ccd1"),
+      robe7: U("photo-1612336307429-8a898d10e223"),
+      robe8: U("photo-1585487000160-6ebcfceb0d03"),
+      mode1: U("photo-1496747611176-843222e1e57c"),
+      mode2: U("photo-1469334031218-e382a71b716b"),
+      mode3: U("photo-1485968579580-b6d095142e6e"),
+      mode4: U("photo-1487222477894-8943e31ef7b2"),
+      mode5: U("photo-1509631179647-0177331693ae"),
+      mode6: U("photo-1525507119028-ed4c629a60a3"),
+      mode7: U("photo-1558769132-cb1aea458c5e"),
+      mode8: U("photo-1503342217505-b0a15ec3261c"),
+      blouse1: U("photo-1564257631407-4deb1f99d992"),
+      pull1: U("photo-1434389677669-e08b4cac3105"),
+      pull2: U("photo-1576566588028-4147f3842f27"),
+      manteau1: U("photo-1539533018447-63fcce2678e3"),
+      manteau2: U("photo-1544022613-e87ca75a784a"),
+      veste1: U("photo-1551028719-00167b16eac5"),
+      boutique: U("photo-1567401893414-76b7b1e5a7a5", 1000),
+      boutique2: U("photo-1441984904996-e0b6ba687e04", 1000),
+      portant: U("photo-1490481651871-ab68de25d43d", 1000),
+      hero: U("photo-1483985988355-763728e1935b", 1800)
+    };
+
+    /* =========================================================
+       CATÉGORIES
+       ========================================================= */
+    const CATEGORIES = [
+      { id: "robes",    nom: "Robes",               image: PHOTOS.robe3 },
+      { id: "soiree",   nom: "Robes de soirée",     image: PHOTOS.robe1 },
+      { id: "blouses",  nom: "Blouses",             image: PHOTOS.blouse1 },
+      { id: "mailles",  nom: "Mailles & Pulls",     image: PHOTOS.pull1 },
+      { id: "manteaux", nom: "Manteaux & Fourrures", image: PHOTOS.manteau1 },
+      { id: "ensembles", nom: "Ensembles",          image: PHOTOS.mode5 }
+    ];
+
+    /* =========================================================
+       PRODUITS — modifiez librement ce tableau
+       (badge : "Nouveau", "-20%", "Stock limité" ou null)
+       (couleurs : { nom, hex })
+       ========================================================= */
+    const PRODUITS = [
+      { id: 1, nom: "Robe longue en dentelle rose", categorie: "robes", prix: 390, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL"], couleurs: [{ nom: "Rose poudré", hex: "#E8C4C4" }, { nom: "Crème", hex: "#F3EAD9" }],
+        images: [PHOTOS.robe2, PHOTOS.robe3, PHOTOS.mode1, PHOTOS.mode3], badge: "Nouveau", nouveau: 16, bestseller: true,
+        description: "Une robe longue romantique en dentelle fine, doublée, avec manches mi-longues et taille marquée. Parfaite pour les fiançailles, les henna ou un dîner chic.",
+        matiere: "Dentelle polyester, doublure viscose", entretien: "Lavage à la main à froid, ne pas essorer, séchage à plat." },
+
+      { id: 2, nom: "Pull côtelé boutonné crème", categorie: "mailles", prix: 179, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Crème", hex: "#F3EAD9" }, { nom: "Camel", hex: "#C19A6B" }, { nom: "Noir", hex: "#1E1E1E" }],
+        images: [PHOTOS.pull1, PHOTOS.pull2, PHOTOS.mode6, PHOTOS.mode2], badge: "Nouveau", nouveau: 15, bestseller: true,
+        description: "Maille côtelée douce avec boutons dorés sur le devant. Se porte ouvert comme un gilet ou fermé comme un pull. Un basique chic de l'hiver.",
+        matiere: "70 % acrylique, 30 % laine", entretien: "Lavage 30 °C programme laine, séchage à plat." },
+
+      { id: 3, nom: "Manteau fausse fourrure marron", categorie: "manteaux", prix: 590, ancienPrix: null,
+        tailles: ["M", "L", "XL"], couleurs: [{ nom: "Marron", hex: "#7B5A44" }, { nom: "Beige", hex: "#D9C3A5" }],
+        images: [PHOTOS.manteau2, PHOTOS.manteau1, PHOTOS.mode7, PHOTOS.mode8], badge: "Stock limité", nouveau: 14, bestseller: true,
+        description: "Manteau mi-long en fausse fourrure ultra douce, col large et poches latérales. Chaleur et élégance pour les soirées fraîches de Fès.",
+        matiere: "Fausse fourrure 100 % polyester, doublure satin", entretien: "Nettoyage à sec recommandé." },
+
+      { id: 4, nom: "Blouse fleurie bleue", categorie: "blouses", prix: 199, ancienPrix: 249,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Bleu", hex: "#7DA2C9" }, { nom: "Rose", hex: "#E8C4C4" }],
+        images: [PHOTOS.blouse1, PHOTOS.mode6, PHOTOS.mode4, PHOTOS.mode2], badge: "-20%", nouveau: 13, bestseller: true,
+        description: "Blouse légère à imprimé floral, manches bouffantes et col rond. Se porte avec un jean, une jupe ou un pantalon large.",
+        matiere: "100 % viscose fluide", entretien: "Lavage 30 °C, repassage doux." },
+
+      { id: 5, nom: "Robe de soirée satinée bordeaux", categorie: "soiree", prix: 690, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL"], couleurs: [{ nom: "Bordeaux", hex: "#6E1F2F" }, { nom: "Vert émeraude", hex: "#1F5E4A" }, { nom: "Noir", hex: "#1E1E1E" }],
+        images: [PHOTOS.robe1, PHOTOS.robe5, PHOTOS.robe4, PHOTOS.mode5], badge: "Nouveau", nouveau: 12, bestseller: true,
+        description: "Robe longue en satin fluide, coupe cintrée et légère fente sur le côté. La pièce idéale pour un mariage ou une grande soirée.",
+        matiere: "Satin polyester, doublure", entretien: "Nettoyage à sec ou lavage à la main à froid." },
+
+      { id: 6, nom: "Ensemble tricot beige deux pièces", categorie: "ensembles", prix: 349, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL"], couleurs: [{ nom: "Beige", hex: "#D9C3A5" }, { nom: "Gris perle", hex: "#C9C6C2" }],
+        images: [PHOTOS.mode5, PHOTOS.mode1, PHOTOS.pull2, PHOTOS.mode7], badge: "Nouveau", nouveau: 11, bestseller: false,
+        description: "Ensemble confortable en maille douce : pull ample et pantalon large assortis. Le look cosy et chic pour tous les jours.",
+        matiere: "Maille viscose et polyester", entretien: "Lavage 30 °C, séchage à plat." },
+
+      { id: 7, nom: "Robe midi plissée vert sauge", categorie: "robes", prix: 290, ancienPrix: 360,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Vert sauge", hex: "#A3B18A" }, { nom: "Rose", hex: "#E8C4C4" }],
+        images: [PHOTOS.robe6, PHOTOS.robe8, PHOTOS.mode3, PHOTOS.mode1], badge: "-20%", nouveau: 10, bestseller: false,
+        description: "Robe midi à jupe plissée et ceinture à nouer. Une silhouette féminine et légère, facile à porter de jour comme de soir.",
+        matiere: "Mousseline polyester", entretien: "Lavage 30 °C, ne pas sécher en machine." },
+
+      { id: 8, nom: "Gilet long en maille camel", categorie: "mailles", prix: 229, ancienPrix: null,
+        tailles: ["M", "L", "XL", "XXL"], couleurs: [{ nom: "Camel", hex: "#C19A6B" }, { nom: "Gris", hex: "#9A9591" }],
+        images: [PHOTOS.pull2, PHOTOS.mode2, PHOTOS.pull1, PHOTOS.mode8], badge: "Nouveau", nouveau: 9, bestseller: false,
+        description: "Long gilet enveloppant avec poches plaquées. À superposer sur une robe ou un ensemble pour un look élégant et chaud.",
+        matiere: "Maille acrylique et laine", entretien: "Lavage 30 °C programme laine." },
+
+      { id: 9, nom: "Veste fourrure courte blanche", categorie: "manteaux", prix: 490, ancienPrix: null,
+        tailles: ["S", "M", "L"], couleurs: [{ nom: "Blanc cassé", hex: "#F4EFE6" }, { nom: "Rose poudré", hex: "#E8C4C4" }],
+        images: [PHOTOS.veste1, PHOTOS.manteau2, PHOTOS.mode4, PHOTOS.mode6], badge: "Stock limité", nouveau: 8, bestseller: true,
+        description: "Petite veste en fausse fourrure, courte et volumineuse. Sublime sur une robe de soirée ou avec un jean pour un look tendance.",
+        matiere: "Fausse fourrure polyester", entretien: "Nettoyage à sec recommandé." },
+
+      { id: 10, nom: "Blouse satinée col lavallière", categorie: "blouses", prix: 219, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL"], couleurs: [{ nom: "Champagne", hex: "#E6D3B3" }, { nom: "Noir", hex: "#1E1E1E" }, { nom: "Rose", hex: "#E8C4C4" }],
+        images: [PHOTOS.mode4, PHOTOS.blouse1, PHOTOS.mode6, PHOTOS.mode2], badge: null, nouveau: 7, bestseller: false,
+        description: "Blouse fluide au toucher satiné avec un col lavallière à nouer. Élégante au bureau comme pour une sortie.",
+        matiere: "Satin polyester", entretien: "Lavage à la main, repassage doux à l'envers." },
+
+      { id: 11, nom: "Robe pull grise col roulé", categorie: "mailles", prix: 249, ancienPrix: 310,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Gris chiné", hex: "#A8A4A0" }, { nom: "Crème", hex: "#F3EAD9" }],
+        images: [PHOTOS.mode2, PHOTOS.pull1, PHOTOS.mode8, PHOTOS.pull2], badge: "-20%", nouveau: 6, bestseller: false,
+        description: "Robe pull mi-longue en maille côtelée, col roulé et coupe près du corps. Se porte avec des bottes pour un look d'hiver chic.",
+        matiere: "Maille côtelée viscose", entretien: "Lavage 30 °C, séchage à plat." },
+
+      { id: 12, nom: "Robe de soirée paillettes dorées", categorie: "soiree", prix: 650, ancienPrix: null,
+        tailles: ["S", "M", "L"], couleurs: [{ nom: "Doré", hex: "#C9A96E" }, { nom: "Argent", hex: "#C0C0C0" }],
+        images: [PHOTOS.robe5, PHOTOS.robe1, PHOTOS.robe7, PHOTOS.mode5], badge: "Stock limité", nouveau: 5, bestseller: true,
+        description: "Robe longue entièrement brodée de sequins dorés, manches longues et dos délicat. Pour briller lors de vos plus belles occasions.",
+        matiere: "Tulle brodé de sequins, doublure", entretien: "Nettoyage à sec uniquement." },
+
+      { id: 13, nom: "Ensemble chemise et pantalon lin", categorie: "ensembles", prix: 329, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Sable", hex: "#D8C6A8" }, { nom: "Blanc", hex: "#FAFAFA" }, { nom: "Terracotta", hex: "#B5654A" }],
+        images: [PHOTOS.mode7, PHOTOS.mode5, PHOTOS.mode1, PHOTOS.mode3], badge: null, nouveau: 4, bestseller: false,
+        description: "Ensemble ample chemise oversize et pantalon large à taille élastique. Léger, élégant et très confortable.",
+        matiere: "Mélange lin et viscose", entretien: "Lavage 30 °C, repassage à la vapeur." },
+
+      { id: 14, nom: "Robe fleurie manches bouffantes", categorie: "robes", prix: 259, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL"], couleurs: [{ nom: "Blanc fleuri", hex: "#F4EFE6" }, { nom: "Noir fleuri", hex: "#2B2B2B" }],
+        images: [PHOTOS.robe7, PHOTOS.robe2, PHOTOS.mode3, PHOTOS.robe6], badge: null, nouveau: 3, bestseller: false,
+        description: "Robe longue à petites fleurs, manches bouffantes et volants. Fraîche et féminine, elle se porte en toutes saisons.",
+        matiere: "100 % viscose", entretien: "Lavage 30 °C, repassage doux." },
+
+      { id: 15, nom: "Top basique côtelé noir", categorie: "blouses", prix: 149, ancienPrix: null,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Noir", hex: "#1E1E1E" }, { nom: "Blanc", hex: "#FAFAFA" }, { nom: "Beige", hex: "#D9C3A5" }],
+        images: [PHOTOS.mode6, PHOTOS.mode8, PHOTOS.mode4, PHOTOS.blouse1], badge: null, nouveau: 2, bestseller: false,
+        description: "Top manches longues en maille côtelée stretch. La base indispensable de toutes les garde-robes, à associer à l'infini.",
+        matiere: "95 % coton, 5 % élasthanne", entretien: "Lavage 30 °C." },
+
+      { id: 16, nom: "Trench long ceinturé beige", categorie: "manteaux", prix: 450, ancienPrix: 560,
+        tailles: ["S", "M", "L", "XL", "XXL"], couleurs: [{ nom: "Beige", hex: "#D9C3A5" }, { nom: "Noir", hex: "#1E1E1E" }],
+        images: [PHOTOS.manteau1, PHOTOS.mode8, PHOTOS.veste1, PHOTOS.mode7], badge: "-20%", nouveau: 1, bestseller: false,
+        description: "Trench intemporel à double boutonnage avec ceinture à nouer. La pièce chic qui habille toutes vos tenues de mi-saison.",
+        matiere: "Polyester et coton", entretien: "Lavage 30 °C ou nettoyage à sec." }
+    ];
+
+    /* Avis clientes */
+    const AVIS = [
+      { prenom: "Salma", ville: "Fès", note: 5, texte: "Tbarkellah, la robe en dentelle est encore plus belle en vrai ! Livrée le lendemain et la qualité est top. Merci Douja 🤍" },
+      { prenom: "Imane", ville: "Tanger", note: 5, texte: "J'ai commandé sur WhatsApp, réponse rapide et colis reçu en 48h. J'ai payé à la livraison, aucun stress. Je recommande !" },
+      { prenom: "Khadija", ville: "Kénitra", note: 5, texte: "Le manteau fourrure est trop chaud et trop chic. On m'a même échangé la taille sans problème. Service au top." },
+      { prenom: "Nour", ville: "Tétouan", note: 4, texte: "Les nouveautés chaque semaine c'est mon petit plaisir 😍 Les tailles sont justes et les conseils sur WhatsApp m'ont beaucoup aidée." }
+    ];
+
+    /* Photos de la grille Instagram */
+    const INSTA = [PHOTOS.mode1, PHOTOS.robe2, PHOTOS.pull1, PHOTOS.mode5, PHOTOS.robe1, PHOTOS.manteau2];
+
+    /* =========================================================
+       ÉTAT DE L'APPLICATION
+       ========================================================= */
+    const etat = {
+      filtres: { categorie: "toutes", tailles: [], prixMax: 690, tri: "nouveautes" },
+      produitCourant: null,
+      selection: { taille: null, couleur: null, qte: 1, image: 0 },
+      panier: chargerPanier(),
+      commande: null // { mode: "produit" | "panier", produitId }
+    };
+
+    /* =========================================================
+       OUTILS
+       ========================================================= */
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+    const dh = n => `${n.toLocaleString("fr-FR")} DH`;
+    const nomCategorie = id => (CATEGORIES.find(c => c.id === id) || {}).nom || "";
+    const trouverProduit = id => PRODUITS.find(p => p.id === Number(id));
+    const echapper = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    /* Image avec repli : bloc coloré + nom si la photo ne charge pas */
+    function media(src, alt, classe = "") {
+      return `<div class="media ${classe}"><span class="ph">${echapper(alt)}</span>
+        <img src="${src}" alt="${echapper(alt)}" loading="lazy" onerror="this.classList.add('ko')"></div>`;
+    }
+
+    /* Classe CSS du badge */
+    function classeBadge(b) {
+      if (!b) return "";
+      if (b.startsWith("-")) return "promo";
+      if (b === "Stock limité") return "stock";
+      return "";
+    }
+
+    /* Notification courte */
+    let minuteurToast;
+    function toast(texte) {
+      const t = $("#toast");
+      t.textContent = texte;
+      t.classList.add("on");
+      clearTimeout(minuteurToast);
+      minuteurToast = setTimeout(() => t.classList.remove("on"), 2400);
+    }
+
+    /* Ouvre WhatsApp avec un message pré-rempli */
+    function ouvrirWhatsApp(message) {
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank", "noopener");
+    }
+
+    /* =========================================================
+       RENDU : CARTE PRODUIT
+       ========================================================= */
+    function carteProduit(p) {
+      const badge = p.badge ? `<span class="badge ${classeBadge(p.badge)}">${p.badge}</span>` : "";
+      const ancien = p.ancienPrix ? `<del>${dh(p.ancienPrix)}</del>` : "";
+      return `
+        <article class="carte reveal">
+          <div data-voir="${p.id}" style="position:relative">${badge}${media(p.images[0], p.nom)}</div>
+          <div class="carte-corps">
+            <span class="carte-cat">${nomCategorie(p.categorie)}</span>
+            <h3 class="carte-nom" data-voir="${p.id}" style="font-family:var(--texte)">${p.nom}</h3>
+            <div class="prix"><strong>${dh(p.prix)}</strong>${ancien}</div>
+            <div class="carte-actions">
+              <button class="btn btn-noir" data-voir="${p.id}">Voir le produit</button>
+              <button class="btn-wa-mini" data-commande-rapide="${p.id}" aria-label="Commander ${echapper(p.nom)} sur WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    /* =========================================================
+       RENDU : ACCUEIL
+       ========================================================= */
+    function rendreAccueil() {
+      $("#heroMedia").innerHTML = `<img src="${PHOTOS.hero}" alt="Nouvelle collection Doujaboutique" onerror="this.classList.add('ko')">`;
+
+      $("#grilleCategories").innerHTML = CATEGORIES.map(c => {
+        const nb = PRODUITS.filter(p => p.categorie === c.id).length;
+        return `<button class="cat-carte reveal" data-categorie="${c.id}">
+          ${media(c.image, c.nom)}
+          <span class="cat-nom">${c.nom}<small>${nb} article${nb > 1 ? "s" : ""} →</small></span>
+        </button>`;
+      }).join("");
+
+      const nouveautes = [...PRODUITS].sort((a, b) => b.nouveau - a.nouveau).slice(0, 8);
+      $("#grilleNouveautes").innerHTML = nouveautes.map(carteProduit).join("");
+
+      $("#carrouselBest").innerHTML = PRODUITS.filter(p => p.bestseller).map(carteProduit).join("");
+
+      $("#grilleAvis").innerHTML = AVIS.map(a => `
+        <div class="avis reveal">
+          <div class="etoiles" aria-label="${a.note} étoiles sur 5">${"★".repeat(a.note)}${"☆".repeat(5 - a.note)}</div>
+          <p>« ${a.texte} »</p>
+          <div class="avis-auteur"><div class="avatar">${a.prenom[0]}</div><div><strong>${a.prenom}</strong><span>${a.ville}</span></div></div>
+        </div>`).join("");
+
+      $("#grilleInsta").innerHTML = INSTA.map((src, i) => `
+        <a href="https://www.instagram.com/doujaboutique/" target="_blank" rel="noopener" class="reveal" aria-label="Publication Instagram ${i + 1}">
+          ${media(src, "@doujaboutique")}
+        </a>`).join("");
+
+      $("#photoBoutique").innerHTML = `<span class="ph">La boutique à Narjiss, Fès</span><img src="${PHOTOS.boutique}" alt="La boutique Doujaboutique à Fès" loading="lazy" onerror="this.classList.add('ko')">`;
+
+      $("#footerCategories").innerHTML = CATEGORIES.map(c => `<li><button data-categorie="${c.id}">${c.nom}</button></li>`).join("");
+
+      // Barre d'annonce : contenu dupliqué pour un défilement continu
+      const annonce = ["🚚 Livraison partout au Maroc", "💵 Paiement à la livraison", "✨ Nouvel arrivage chaque semaine"];
+      const bloc = annonce.map(a => `<span>${a}</span><span>•</span>`).join("");
+      $("#annoncePiste").innerHTML = bloc.repeat(4);
+    }
+
+    /* =========================================================
+       RENDU : BOUTIQUE + FILTRES
+       ========================================================= */
+    function rendreFiltres() {
+      const f = etat.filtres;
+      $("#filtreCategories").innerHTML = [{ id: "toutes", nom: "Toutes" }, ...CATEGORIES]
+        .map(c => `<button class="puce ${f.categorie === c.id ? "on" : ""}" data-filtre-cat="${c.id}">${c.nom}</button>`).join("");
+      $("#filtreTailles").innerHTML = TOUTES_TAILLES
+        .map(t => `<button class="puce ${f.tailles.includes(t) ? "on" : ""}" data-filtre-taille="${t}">${t}</button>`).join("");
+      $("#filtrePrix").value = f.prixMax;
+      $("#prixMaxLabel").textContent = dh(f.prixMax);
+      $("#triProduits").value = f.tri;
+    }
+
+    function rendreBoutique() {
+      const f = etat.filtres;
+      let liste = PRODUITS.filter(p =>
+        (f.categorie === "toutes" || p.categorie === f.categorie) &&
+        (f.tailles.length === 0 || f.tailles.some(t => p.tailles.includes(t))) &&
+        p.prix <= f.prixMax
+      );
+      if (f.tri === "prix-asc") liste.sort((a, b) => a.prix - b.prix);
+      else if (f.tri === "prix-desc") liste.sort((a, b) => b.prix - a.prix);
+      else liste.sort((a, b) => b.nouveau - a.nouveau);
+
+      $("#titreBoutique").textContent = f.categorie === "toutes" ? "La boutique" : nomCategorie(f.categorie);
+      $("#nbResultats").textContent = `${liste.length} article${liste.length > 1 ? "s" : ""}`;
+      $("#grilleBoutique").innerHTML = liste.length
+        ? liste.map(carteProduit).join("")
+        : `<div class="vide">Aucun article ne correspond à vos filtres.<br><button class="lien" id="lienReinit" style="margin-top:10px">Réinitialiser les filtres</button></div>`;
+      rendreFiltres();
+      observerReveal();
+    }
+
+    function reinitialiserFiltres() {
+      etat.filtres = { categorie: "toutes", tailles: [], prixMax: 690, tri: "nouveautes" };
+      rendreBoutique();
+    }
+
+    /* =========================================================
+       RENDU : FICHE PRODUIT
+       ========================================================= */
+    function rendreFiche(id) {
+      const p = trouverProduit(id);
+      if (!p) { location.hash = "#boutique"; return; }
+      etat.produitCourant = p;
+      etat.selection = { taille: p.tailles.includes("M") ? "M" : p.tailles[0], couleur: p.couleurs[0].nom, qte: 1, image: 0 };
+
+      const badge = p.badge ? `<span class="badge-inline ${classeBadge(p.badge)}">${p.badge}</span>` : "";
+      const ancien = p.ancienPrix ? `<del>${dh(p.ancienPrix)}</del>` : "";
+
+      $("#ficheProduit").innerHTML = `
+        <nav class="fil"><a href="#accueil">Accueil</a> / <a href="#boutique" data-categorie="${p.categorie}">${nomCategorie(p.categorie)}</a> / ${p.nom}</nav>
+        <div class="fiche">
+          <div class="fiche-galerie">
+            <div class="galerie-principale" id="galeriePrincipale">${media(p.images[0], p.nom)}</div>
+            <div class="miniatures">
+              ${p.images.map((img, i) => `<button class="${i === 0 ? "on" : ""}" data-miniature="${i}" aria-label="Photo ${i + 1}">${media(img, p.nom)}</button>`).join("")}
+            </div>
+          </div>
+
+          <div class="fiche-infos">
+            <span class="carte-cat">${nomCategorie(p.categorie)}</span> ${badge}
+            <h1>${p.nom}</h1>
+            <div class="prix"><strong>${dh(p.prix)}</strong>${ancien}</div>
+            <div class="bandeau-cod">💵 <span>Paiement à la livraison — vous payez en recevant votre colis</span></div>
+            <p class="fiche-desc">${p.description}</p>
+
+            <div class="option">
+              <div class="option-titre">Taille : <span id="labelTaille">${etat.selection.taille}</span>
+                <button class="lien" id="btnGuideTailles" style="margin-left:auto">Guide des tailles</button></div>
+              <div class="tailles">
+                ${TOUTES_TAILLES.map(t => `<button class="taille ${t === etat.selection.taille ? "on" : ""}" data-taille="${t}" ${p.tailles.includes(t) ? "" : "disabled"}>${t}</button>`).join("")}
+              </div>
+            </div>
+
+            <div class="option">
+              <div class="option-titre">Couleur : <span id="labelCouleur" style="margin-right:auto;margin-left:6px">${etat.selection.couleur}</span></div>
+              <div class="couleurs">
+                ${p.couleurs.map((c, i) => `<button class="pastille ${i === 0 ? "on" : ""}" style="background:${c.hex}" data-couleur="${echapper(c.nom)}" aria-label="${echapper(c.nom)}" title="${echapper(c.nom)}"></button>`).join("")}
+              </div>
+            </div>
+
+            <div class="option">
+              <div class="option-titre">Quantité</div>
+              <div class="qte">
+                <button data-qte="-1" aria-label="Diminuer">−</button>
+                <input id="qteFiche" type="number" min="1" max="10" value="1" aria-label="Quantité" />
+                <button data-qte="1" aria-label="Augmenter">+</button>
+              </div>
+            </div>
+
+            <div class="fiche-btns">
+              <button class="btn btn-noir" id="btnCommanderFiche">Commander maintenant – Paiement à la livraison</button>
+              <button class="btn btn-wa" id="btnWaFiche"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ico-wa"/></svg> Commander sur WhatsApp</button>
+              <button class="btn btn-contour" id="btnAjouterPanier">Ajouter au panier</button>
+            </div>
+
+            <div class="rassurance">
+              <div>🚚 <span><b>Livraison 24-72h</b> selon la ville, partout au Maroc (gratuite à Fès)</span></div>
+              <div>💵 <span><b>Paiement à la livraison</b>, aucun paiement en ligne</span></div>
+              <div>🔁 <span><b>Échange de taille possible</b> si la taille ne convient pas</span></div>
+            </div>
+
+            <div class="details">
+              <details open><summary>Matière</summary><p>${p.matiere}</p></details>
+              <details><summary>Conseils d'entretien</summary><p>${p.entretien}</p></details>
+              <details><summary>Livraison & échange</summary>
+                <ul><li>Fès : livraison gratuite sous 24h</li><li>Autres villes : 30 DH, 24 à 72h</li><li>Échange de taille sous 3 jours après réception</li></ul>
+              </details>
+            </div>
+          </div>
+        </div>`;
+
+      // Produits similaires : même catégorie d'abord, puis complétés
+      const similaires = [
+        ...PRODUITS.filter(x => x.categorie === p.categorie && x.id !== p.id),
+        ...PRODUITS.filter(x => x.categorie !== p.categorie && x.bestseller)
+      ].slice(0, 4);
+      $("#grilleSimilaires").innerHTML = similaires.map(carteProduit).join("");
+      observerReveal();
+    }
+
+    function changerImage(i) {
+      const p = etat.produitCourant;
+      etat.selection.image = i;
+      $("#galeriePrincipale").innerHTML = media(p.images[i], p.nom);
+      $$("[data-miniature]").forEach(b => b.classList.toggle("on", Number(b.dataset.miniature) === i));
+    }
+
+    function lireQteFiche() {
+      const v = Math.min(10, Math.max(1, parseInt($("#qteFiche").value, 10) || 1));
+      $("#qteFiche").value = v;
+      etat.selection.qte = v;
+      return v;
+    }
+
+    /* =========================================================
+       NAVIGATION PAR ONGLETS (via le # de l'URL)
+       ========================================================= */
+    function naviguer() {
+      const hash = location.hash.replace("#", "") || "accueil";
+      let page = hash;
+
+      if (hash.startsWith("produit-")) {
+        page = "produit";
+        rendreFiche(hash.split("-")[1]);
+      } else if (hash === "nouveautes") {
+        page = "boutique";
+        etat.filtres.tri = "nouveautes";
+        rendreBoutique();
+      } else if (hash === "boutique") {
+        rendreBoutique();
+      } else if (!["accueil", "apropos", "contact"].includes(hash)) {
+        page = "accueil";
+      }
+
+      $$(".page").forEach(p => p.classList.toggle("active", p.dataset.page === page));
+      $$(".nav a").forEach(a => a.classList.toggle("actif", a.dataset.lien === hash || (hash.startsWith("produit") && a.dataset.lien === "boutique")));
+      window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+      fermerTout();
+      observerReveal();
+    }
+
+    function allerCategorie(id) {
+      etat.filtres = { categorie: id, tailles: [], prixMax: 690, tri: "nouveautes" };
+      if (location.hash === "#boutique") naviguer();
+      else location.hash = "#boutique";
+    }
+
+    /* =========================================================
+       PANIER (sauvegardé dans le navigateur)
+       ========================================================= */
+    function chargerPanier() {
+      try { return JSON.parse(localStorage.getItem("douja_panier")) || []; }
+      catch (e) { return []; }
+    }
+    function sauverPanier() {
+      try { localStorage.setItem("douja_panier", JSON.stringify(etat.panier)); } catch (e) { /* stockage indisponible */ }
+    }
+
+    function ajouterAuPanier(produitId, taille, couleur, qte) {
+      const ligne = etat.panier.find(l => l.id === produitId && l.taille === taille && l.couleur === couleur);
+      if (ligne) ligne.qte = Math.min(10, ligne.qte + qte);
+      else etat.panier.push({ id: produitId, taille, couleur, qte });
+      sauverPanier();
+      rendrePanier();
+      const c = $("#compteurPanier");
+      c.classList.add("pop");
+      setTimeout(() => c.classList.remove("pop"), 300);
+    }
+
+    function totalPanier() {
+      return etat.panier.reduce((s, l) => s + (trouverProduit(l.id)?.prix || 0) * l.qte, 0);
+    }
+
+    function rendrePanier() {
+      // Nettoyage des produits qui n'existent plus
+      etat.panier = etat.panier.filter(l => trouverProduit(l.id));
+      const nb = etat.panier.reduce((s, l) => s + l.qte, 0);
+      $("#compteurPanier").textContent = nb;
+
+      if (!etat.panier.length) {
+        $("#panierListe").innerHTML = `<div class="panier-vide"><div>🛍️</div><p>Votre panier est vide.</p>
+          <a href="#boutique" class="btn btn-noir" style="margin-top:18px" data-fermer-panier>Découvrir la boutique</a></div>`;
+        $("#panierPied").style.display = "none";
+        return;
+      }
+      $("#panierPied").style.display = "";
+      $("#panierListe").innerHTML = etat.panier.map((l, i) => {
+        const p = trouverProduit(l.id);
+        return `<div class="panier-article">
+          ${media(p.images[0], p.nom)}
+          <div>
+            <div class="pa-nom">${p.nom}</div>
+            <div class="pa-var">Taille ${l.taille} • ${l.couleur}</div>
+            <div class="pa-bas">
+              <div class="qte">
+                <button data-panier-qte="${i}" data-delta="-1" aria-label="Diminuer">−</button>
+                <span>${l.qte}</span>
+                <button data-panier-qte="${i}" data-delta="1" aria-label="Augmenter">+</button>
+              </div>
+              <strong>${dh(p.prix * l.qte)}</strong>
+            </div>
+            <button class="pa-suppr" data-panier-suppr="${i}">Supprimer</button>
+          </div>
+        </div>`;
+      }).join("");
+      $("#panierTotal").textContent = dh(totalPanier());
+    }
+
+    /* =========================================================
+       TIROIRS, MENU ET MODALES
+       ========================================================= */
+    function majVoile() {
+      const ouvert = $(".menu-mobile.ouvert, .panier.ouvert, .filtres.ouvert, .modale.ouvert");
+      $("#voile").classList.toggle("on", !!ouvert && !$(".menu-mobile.ouvert"));
+      document.body.classList.toggle("no-scroll", !!ouvert);
+    }
+    function basculer(el, ouvrir) {
+      el.classList.toggle("ouvert", ouvrir);
+      el.setAttribute("aria-hidden", String(!ouvrir));
+      majVoile();
+    }
+    function fermerTout() {
+      $$(".menu-mobile, .panier, .filtres, .modale").forEach(el => basculer(el, false));
+      $("#waMenu").classList.remove("ouvert");
+    }
+    function fermerModales() { $$(".modale").forEach(m => basculer(m, false)); }
+
+    /* =========================================================
+       FORMULAIRE DE COMMANDE COD
+       ========================================================= */
+    function ouvrirCommande(mode, produitId) {
+      etat.commande = { mode, produitId };
+      $("#waMenu").classList.remove("ouvert");
+      basculer($("#panier"), false);
+
+      const blocVar = $("#blocVariantes");
+      if (mode === "produit") {
+        const p = trouverProduit(produitId);
+        const sel = etat.produitCourant && etat.produitCourant.id === p.id
+          ? etat.selection
+          : { taille: p.tailles.includes("M") ? "M" : p.tailles[0], couleur: p.couleurs[0].nom, qte: 1 };
+        blocVar.style.display = "";
+        $("#fTaille").innerHTML = p.tailles.map(t => `<option ${t === sel.taille ? "selected" : ""}>${t}</option>`).join("");
+        $("#fCouleur").innerHTML = p.couleurs.map(c => `<option ${c.nom === sel.couleur ? "selected" : ""}>${echapper(c.nom)}</option>`).join("");
+        $("#fQte").value = sel.qte;
+        $("#titreCommande").textContent = "Commander ce produit";
+      } else {
+        blocVar.style.display = "none";
+        $("#titreCommande").textContent = "Commander mon panier";
+      }
+      $$(".champ.erreur").forEach(c => c.classList.remove("erreur"));
+      rendreRecap();
+      basculer($("#modaleCommande"), true);
+      setTimeout(() => { if (window.innerWidth > 640) $("#fNom").focus(); }, 350);
+    }
+
+    /* Liste des articles de la commande en cours */
+    function articlesCommande() {
+      if (!etat.commande) return [];
+      if (etat.commande.mode === "panier") {
+        return etat.panier.map(l => ({ produit: trouverProduit(l.id), taille: l.taille, couleur: l.couleur, qte: l.qte }));
+      }
+      const qte = Math.min(10, Math.max(1, parseInt($("#fQte").value, 10) || 1));
+      return [{ produit: trouverProduit(etat.commande.produitId), taille: $("#fTaille").value, couleur: $("#fCouleur").value, qte }];
+    }
+
+    function calculerTotaux() {
+      const articles = articlesCommande();
+      const sousTotal = articles.reduce((s, a) => s + a.produit.prix * a.qte, 0);
+      const ville = $("#fVille").value;
+      const livraison = ville === VILLE_LIVRAISON_GRATUITE ? 0 : FRAIS_LIVRAISON;
+      return { articles, sousTotal, livraison, total: sousTotal + livraison, ville };
+    }
+
+    function rendreRecap() {
+      const { articles, sousTotal, livraison, total, ville } = calculerTotaux();
+      const lignes = articles.map(a => `
+        <div class="recap-ligne"><span>${a.produit.nom}<br><small style="color:var(--gris)">${a.taille} • ${echapper(a.couleur)} • ${dh(a.produit.prix)} × ${a.qte}</small></span>
+        <span>${dh(a.produit.prix * a.qte)}</span></div>`).join("");
+      const texteLivraison = livraison === 0
+        ? `<span class="gratuit">Gratuite à Fès</span>`
+        : `<span>${dh(livraison)}${ville ? "" : " <small style='color:var(--gris)'>(gratuite à Fès)</small>"}</span>`;
+
+      $("#recapCommande").innerHTML = `
+        <h4>Récapitulatif</h4>
+        <div class="recap-articles">${lignes}</div>
+        <div class="recap-ligne" style="border-top:1px solid var(--gris-clair);margin-top:6px;padding-top:10px"><span>Sous-total</span><span>${dh(sousTotal)}</span></div>
+        <div class="recap-ligne"><span>Frais de livraison</span>${texteLivraison}</div>
+        <div class="recap-ligne recap-total"><span>Total à payer à la livraison</span><span>${dh(total)}</span></div>`;
+    }
+
+    /* Validation du numéro marocain : 06 / 07 + 8 chiffres (accepte +212 / 00212) */
+    function normaliserTel(v) {
+      let t = v.replace(/[\s.\-()]/g, "");
+      if (t.startsWith("+212")) t = "0" + t.slice(4);
+      else if (t.startsWith("00212")) t = "0" + t.slice(5);
+      else if (t.startsWith("212")) t = "0" + t.slice(3);
+      return t;
+    }
+    const telValide = v => /^0[67]\d{8}$/.test(normaliserTel(v));
+
+    function validerChamp(idChamp, valide) {
+      $("#" + idChamp).classList.toggle("erreur", !valide);
+      return valide;
+    }
+
+    function validerFormulaire() {
+      const ok = [
+        validerChamp("champNom", $("#fNom").value.trim().length >= 3),
+        validerChamp("champTel", telValide($("#fTel").value)),
+        validerChamp("champVille", !!$("#fVille").value),
+        validerChamp("champAdresse", $("#fAdresse").value.trim().length >= 5)
+      ];
+      const premierKo = $(".champ.erreur input, .champ.erreur select");
+      if (premierKo) premierKo.focus();
+      return ok.every(Boolean);
+    }
+
+    /* Génère le message WhatsApp formaté */
+    function genererMessage() {
+      const { articles, total, livraison } = calculerTotaux();
+      const tel = normaliserTel($("#fTel").value);
+      const telFormate = tel.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+      const note = $("#fNote").value.trim() || "—";
+      let lignes = ["Salam Doujaboutique 👋 Je veux commander :", ""];
+
+      if (articles.length === 1) {
+        const a = articles[0];
+        lignes.push(`🛍️ Produit : ${a.produit.nom} (${dh(a.produit.prix)})`);
+        lignes.push(`📏 Taille : ${a.taille} | 🎨 Couleur : ${a.couleur} | Qté : ${a.qte}`);
+      } else {
+        lignes.push("🛍️ Produits :");
+        articles.forEach((a, i) => {
+          lignes.push(`${i + 1}. ${a.produit.nom}`);
+          lignes.push(`   📏 Taille : ${a.taille} | 🎨 Couleur : ${a.couleur} | Qté : ${a.qte} | ${dh(a.produit.prix * a.qte)}`);
+        });
+      }
+      lignes.push(`🚚 Livraison : ${livraison === 0 ? "gratuite (Fès)" : dh(livraison)}`);
+      lignes.push(`💰 Total : ${total} DH (paiement à la livraison)`);
+      lignes.push("");
+      lignes.push(`👤 Nom : ${$("#fNom").value.trim()}`);
+      lignes.push(`📞 Tél : ${telFormate}`);
+      lignes.push(`🏙️ Ville : ${$("#fVille").value}`);
+      lignes.push(`📍 Adresse : ${$("#fAdresse").value.trim()}`);
+      lignes.push(`📝 Note : ${note}`);
+      return lignes.join("\n");
+    }
+
+    function soumettreCommande(e) {
+      e.preventDefault();
+      if (!validerFormulaire()) { toast("Merci de compléter les champs obligatoires"); return; }
+      if (!articlesCommande().length) { toast("Votre panier est vide"); return; }
+      ouvrirWhatsApp(genererMessage());
+      if (etat.commande.mode === "panier") { etat.panier = []; sauverPanier(); rendrePanier(); }
+      basculer($("#modaleCommande"), false);
+      toast("Merci ! Envoyez le message sur WhatsApp pour confirmer 💕");
+    }
+
+    /* =========================================================
+       ANIMATIONS AU SCROLL (fade-in)
+       ========================================================= */
+    const observateur = "IntersectionObserver" in window
+      ? new IntersectionObserver(entrees => {
+          entrees.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); observateur.unobserve(en.target); } });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" })
+      : null;
+    function observerReveal() {
+      $$(".page.active .reveal:not(.visible)").forEach(el => observateur ? observateur.observe(el) : el.classList.add("visible"));
+    }
+
+    /* =========================================================
+       ÉVÉNEMENTS (délégation sur le document)
+       ========================================================= */
+    document.addEventListener("click", e => {
+      const cible = e.target.closest("button, a, [data-voir]");
+      if (!cible) return;
+      const d = cible.dataset;
+
+      // Ouvrir une fiche produit
+      if (d.voir) { location.hash = `#produit-${d.voir}`; return; }
+
+      // Commande rapide depuis une carte (bouton WhatsApp)
+      if (d.commandeRapide) { ouvrirCommande("produit", Number(d.commandeRapide)); return; }
+
+      // Catégories
+      if (d.categorie) { e.preventDefault(); allerCategorie(d.categorie); return; }
+
+      // WhatsApp « infos »
+      if (cible.hasAttribute("data-wa-info")) { e.preventDefault(); $("#waMenu").classList.remove("ouvert"); ouvrirWhatsApp(MESSAGE_INFO); return; }
+
+      // WhatsApp « commander mon panier » (menu flottant)
+      if (cible.hasAttribute("data-wa-panier")) {
+        if (etat.panier.length) ouvrirCommande("panier");
+        else { $("#waMenu").classList.remove("ouvert"); toast("Votre panier est vide : choisissez d'abord un article 🛍️"); location.hash = "#boutique"; }
+        return;
+      }
+
+      // Fermetures
+      if (cible.hasAttribute("data-fermer-menu")) { basculer($("#menuMobile"), false); return; }
+      if (cible.hasAttribute("data-fermer-panier")) { basculer($("#panier"), false); return; }
+      if (cible.hasAttribute("data-fermer-filtres")) { basculer($("#panneauFiltres"), false); return; }
+      if (cible.hasAttribute("data-fermer-modale")) { fermerModales(); return; }
+
+      // Filtres boutique
+      if (d.filtreCat) { etat.filtres.categorie = d.filtreCat; rendreBoutique(); return; }
+      if (d.filtreTaille) {
+        const t = d.filtreTaille, liste = etat.filtres.tailles;
+        etat.filtres.tailles = liste.includes(t) ? liste.filter(x => x !== t) : [...liste, t];
+        rendreBoutique(); return;
+      }
+      if (cible.id === "lienReinit") { reinitialiserFiltres(); return; }
+
+      // Fiche produit : miniatures, taille, couleur, quantité
+      if (d.miniature) { changerImage(Number(d.miniature)); return; }
+      if (d.taille) {
+        etat.selection.taille = d.taille;
+        $$("[data-taille]").forEach(b => b.classList.toggle("on", b === cible));
+        $("#labelTaille").textContent = d.taille; return;
+      }
+      if (d.couleur) {
+        etat.selection.couleur = d.couleur;
+        $$("[data-couleur]").forEach(b => b.classList.toggle("on", b === cible));
+        $("#labelCouleur").textContent = d.couleur; return;
+      }
+      if (d.qte) { $("#qteFiche").value = (parseInt($("#qteFiche").value, 10) || 1) + Number(d.qte); lireQteFiche(); return; }
+
+      // Panier : quantités et suppression
+      if (d.panierQte !== undefined) {
+        const l = etat.panier[Number(d.panierQte)];
+        l.qte = Math.min(10, l.qte + Number(d.delta));
+        if (l.qte < 1) etat.panier.splice(Number(d.panierQte), 1);
+        sauverPanier(); rendrePanier(); return;
+      }
+      if (d.panierSuppr !== undefined) { etat.panier.splice(Number(d.panierSuppr), 1); sauverPanier(); rendrePanier(); return; }
+
+      // Carrousel (flèches desktop)
+      if (d.carrousel) {
+        const c = $("#carrouselBest");
+        c.scrollBy({ left: Number(d.carrousel) * (c.clientWidth * 0.75), behavior: "smooth" });
+        return;
+      }
+
+      // Boutons de la fiche produit
+      switch (cible.id) {
+        case "btnCommanderFiche":
+        case "btnWaFiche":
+          lireQteFiche(); ouvrirCommande("produit", etat.produitCourant.id); break;
+        case "btnAjouterPanier":
+          lireQteFiche();
+          ajouterAuPanier(etat.produitCourant.id, etat.selection.taille, etat.selection.couleur, etat.selection.qte);
+          toast("Ajouté au panier ✓"); break;
+        case "btnGuideTailles": basculer($("#modaleTailles"), true); break;
+      }
+    });
+
+    // Boutons fixes
+    $("#btnBurger").addEventListener("click", () => basculer($("#menuMobile"), true));
+    $("#btnPanier").addEventListener("click", () => basculer($("#panier"), true));
+    $("#btnOuvrirFiltres").addEventListener("click", () => basculer($("#panneauFiltres"), true));
+    $("#btnReinitFiltres").addEventListener("click", reinitialiserFiltres);
+    $("#btnCommanderPanier").addEventListener("click", () => ouvrirCommande("panier"));
+    $("#waFlottant").addEventListener("click", e => { e.stopPropagation(); $("#waMenu").classList.toggle("ouvert"); });
+    $("#voile").addEventListener("click", fermerTout);
+
+    // Fermer le menu WhatsApp en cliquant ailleurs
+    document.addEventListener("click", e => {
+      if (!e.target.closest("#waMenu, #waFlottant")) $("#waMenu").classList.remove("ouvert");
+    });
+
+    // Fermer la modale en cliquant à côté de la boîte
+    $$(".modale").forEach(m => m.addEventListener("click", e => { if (e.target === m) fermerModales(); }));
+
+    // Touche Échap
+    document.addEventListener("keydown", e => { if (e.key === "Escape") fermerTout(); });
+
+    // Filtres : prix et tri
+    $("#filtrePrix").addEventListener("input", e => { etat.filtres.prixMax = Number(e.target.value); rendreBoutique(); });
+    $("#triProduits").addEventListener("change", e => { etat.filtres.tri = e.target.value; rendreBoutique(); });
+
+    // Quantité saisie à la main sur la fiche
+    document.addEventListener("change", e => { if (e.target.id === "qteFiche") lireQteFiche(); });
+
+    // Formulaire de commande : récapitulatif en direct + validation
+    $("#formCommande").addEventListener("submit", soumettreCommande);
+    ["fVille", "fTaille", "fCouleur", "fQte"].forEach(id => $("#" + id).addEventListener("input", rendreRecap));
+    $("#fVille").addEventListener("change", rendreRecap);
+    $("#fTel").addEventListener("blur", () => { if ($("#fTel").value) validerChamp("champTel", telValide($("#fTel").value)); });
+    ["fNom", "fTel", "fAdresse", "fVille"].forEach(id => $("#" + id).addEventListener("input", () => $("#" + id).closest(".champ").classList.remove("erreur")));
+
+    // Navigation
+    window.addEventListener("hashchange", naviguer);
+
+    /* =========================================================
+       INITIALISATION
+       ========================================================= */
+    $("#fVille").innerHTML = `<option value="">Choisir votre ville…</option>` + VILLES.map(v => `<option>${v}</option>`).join("");
+    rendreAccueil();
+    rendreFiltres();
+    rendrePanier();
+    naviguer();
+  </script>
+</body>
+</html>
