@@ -1340,7 +1340,7 @@
       const badge = p.badge ? `<span class="badge ${classeBadge(p.badge)}">${p.badge}</span>` : "";
       const ancien = p.ancienPrix ? `<del>${dh(p.ancienPrix)}</del>` : "";
       return `
-        <article class="carte reveal">
+        <article class="carte">
           <div data-voir="${p.id}" style="position:relative">${badge}${media(p.images[0], p.nom)}</div>
           <div class="carte-corps">
             <span class="carte-cat">${nomCategorie(p.categorie)}</span>
